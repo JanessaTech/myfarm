@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.myfarm.flashsale.core.modules.user.repository.mappers")
+//@MapperScan("com.myfarm.flashsale.core.modules.user.repository.mappers")
 public class CoreApplication {
 
 	public static void main(String[] args) {
