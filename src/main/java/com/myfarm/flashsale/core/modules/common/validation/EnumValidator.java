@@ -7,16 +7,23 @@ import java.lang.reflect.Method;
 public class EnumValidator implements ConstraintValidator<EnumValueValidator, String> {
     private Class<? extends Enum<?>> enumClass;
     private String enumMethod = "valueOf";
+    private boolean isAllowEmpty;
     @Override
     public void initialize(EnumValueValidator constraintAnnotation) {
         this.enumClass = constraintAnnotation.enumClass();
+        this.isAllowEmpty = constraintAnnotation.isAllowEmpty();
 
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        if(value == null)
-            return false;
+        if(isAllowEmpty){
+            if(value == null)
+                return true;
+        }else{
+            if(value == null)
+                return false;
+        }
 
         Class<?> valueClass = value.getClass();
 

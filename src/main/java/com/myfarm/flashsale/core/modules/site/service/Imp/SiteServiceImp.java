@@ -3,7 +3,9 @@ package com.myfarm.flashsale.core.modules.site.service.Imp;
 import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
 import com.myfarm.flashsale.core.modules.site.dto.filter.SiteFilter;
-import com.myfarm.flashsale.core.modules.site.exception.SiteException;
+import com.myfarm.flashsale.core.modules.site.exception.SiteBusinessException;
+import com.myfarm.flashsale.core.modules.site.exception.SiteNotFoundException;
+import com.myfarm.flashsale.core.modules.site.exception.SiteParameterException;
 import com.myfarm.flashsale.core.modules.site.repository.mappers.SiteMapper;
 import com.myfarm.flashsale.core.modules.site.service.SiteService;
 import org.slf4j.Logger;
@@ -24,42 +26,37 @@ public class SiteServiceImp implements SiteService {
     private SiteMapper siteMapper;
 
     @Override
-    public PageInfo<SiteDto> getSitesByFilter(SiteFilter siteFilter, int page, int pageSize) throws SiteException {
+    public PageInfo<SiteDto> getSitesByFilter(SiteFilter siteFilter, int page, int pageSize) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
         return null;
     }
 
     @Override
-    public SiteDto getSiteById(String siteId) throws SiteException {
+    public SiteDto getSiteById(String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
         return null;
     }
 
     @Override
-    public void addSite(SiteDto siteDto) throws SiteException {
+    public void addSite(SiteDto siteDto) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
 
     }
 
     @Override
-    public SiteDto updateSite(SiteDto siteDto) throws SiteException {
+    public SiteDto updateSite(SiteDto siteDto) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
         return null;
     }
 
     @Override
-    public SiteDto setSiteOnLine(String siteId) throws SiteException {
+    public SiteDto setSiteOnLine(String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
         return null;
     }
 
     @Override
-    public SiteDto setSiteOffLine(String siteId) throws SiteException {
+    public SiteDto setSiteOffLine(String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
         return null;
     }
 
     @Override
-    public void deleteSiteById(String siteId) throws SiteException {
-
-    }
-
-    @Override
-    public void deleteSiteByIds(List<String> siteIds) throws SiteException {
+    public void deleteSiteByIds(List<String> siteIds) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
 
     }
 }

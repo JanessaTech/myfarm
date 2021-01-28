@@ -21,4 +21,5 @@ public @interface EnumValueValidator {
 
     Class<? extends Enum<?>> enumClass();
 
+    boolean isAllowEmpty() default true;
 }

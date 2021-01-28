@@ -65,6 +65,7 @@ public class Swagger2Config {
         List<Tag> tags = new ArrayList<Tag>();
         tags.add(new Tag("provider", "供应商相关操作"));
         tags.add(new Tag("production", "商品相关操作"));
+        tags.add(new Tag("site", "自提店相关操作"));
         Tag[] res = new Tag[tags.size()];
         return tags.toArray(res);
     }

@@ -24,7 +24,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
-@Api(value = "账户管理类，主要用来负责角色的增删查及用户对象的增删查改", tags = "User")
+@Api(value = "账户管理。主要用来负责角色的增删查及用户对象的增删查改", tags = "User")
 @Validated
 @RestController
 @RequestMapping("/users")
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "根据过滤条件返回符合条件的用户",
-            notes = "【账户/用户列表】页面下的相关查询操作。共有三处场景触发该方法的调用：<br>1.点击查询按钮  <br>2.对返回的用户列表进行排序操作  <br>3.添加用户后刷信账户/用户列表页面")
+            notes = "【账户/用户列表】页面下的相关查询操作。该页面有三个场景触发该调用：<br>1.点击查询按钮  <br>2.对返回的用户列表进行排序操作  <br>3.添加用户成功后对用户列表进行刷新")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
@@ -71,7 +71,7 @@ public class UserController {
                                                                     int page,
                                                               @RequestParam(value = "page_size", required = true, defaultValue = "10")
                                                                     @Range(min = 10, max = 50, message = "页面大小在10-50之间")
-                                                                    @ApiParam(value = "页面大小(大小在10-100之间)", required = true, defaultValue = "10", example = "10")
+                                                                    @ApiParam(value = "页面大小(大小在10-50之间)", required = true, defaultValue = "10", example = "10")
                                                                     int page_size)
             throws UserProfileBusinessException, UserProfileParameterException,
             UserProfileNotFoundException{
