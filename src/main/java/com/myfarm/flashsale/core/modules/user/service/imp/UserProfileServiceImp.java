@@ -4,7 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.user.dto.UserProfileDto;
 import com.myfarm.flashsale.core.modules.user.dto.filter.UserProfileFilter;
 import com.myfarm.flashsale.core.modules.user.exception.UserProfileBusinessException;
+import com.myfarm.flashsale.core.modules.user.exception.UserProfileNotFoundException;
+import com.myfarm.flashsale.core.modules.user.exception.UserProfileParameterException;
 import com.myfarm.flashsale.core.modules.user.repository.mappers.UserProfileMapper;
+import com.myfarm.flashsale.core.modules.user.repository.mappers.UserRoleMapper;
 import com.myfarm.flashsale.core.modules.user.service.UserProfileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,39 +20,36 @@ import java.util.List;
 
 @Service
 public class UserProfileServiceImp implements UserProfileService {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private MessageSource messageSource;
     @Resource
     private UserProfileMapper userProfileMapper;
+    @Resource
+    private UserRoleMapper userRoleMapper;
 
     @Override
-    public PageInfo<UserProfileDto> getUserProfilesByFilter(UserProfileFilter userProfileFilter, int page, int pageSize) throws UserProfileBusinessException {
+    public PageInfo<UserProfileDto> getUserProfilesByFilter(UserProfileFilter userProfileFilter, int page, int pageSize) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
         return null;
     }
 
     @Override
-    public UserProfileDto getUserProfileById(String userId) throws UserProfileBusinessException {
+    public UserProfileDto getUserProfileById(String userId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
         return null;
     }
 
     @Override
-    public void addUserProfile(UserProfileDto userProfileDto) throws UserProfileBusinessException {
+    public void addUserProfile(UserProfileDto userProfileDto) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
 
     }
 
     @Override
-    public UserProfileDto updateUserProfile(UserProfileDto userProfileDto) throws UserProfileBusinessException {
+    public UserProfileDto updateUserProfile(UserProfileDto userProfileDto) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
         return null;
     }
 
     @Override
-    public void deleteUserProfileById(String userId) throws UserProfileBusinessException {
-
-    }
-
-    @Override
-    public void deleteUserProfileByIds(List<String> userIds) throws UserProfileBusinessException {
+    public void deleteUserProfileByIds(List<String> userIds) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
 
     }
 }

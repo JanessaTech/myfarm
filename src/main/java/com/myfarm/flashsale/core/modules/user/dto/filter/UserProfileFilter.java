@@ -15,20 +15,20 @@ public class UserProfileFilter {
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
     private String userId;
 
-    @ApiModelProperty(value = "用户名称。符合正则表达式：^[a-zA-Z0-9_-]{4,16}$", example = "John_9527-test")
+    @ApiModelProperty(value = "用户名称。用户名规则：4到16位（字母，数字，下划线，减号）。正则表达式：^[a-zA-Z0-9_-]{4,16}$", example = "John_9527-test")
     @Pattern(regexp = "^[a-zA-Z0-9_-]{4,16}$", message = "用户名只能包含字母，数字，下划线，减号，且长度在4-16之间")
     private String name;
 
-    @ApiModelProperty(value = "电话。符合正则表达式：^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", example = "15824657732")
+    @ApiModelProperty(value = "电话。支持电信、移动、联通等运营商，详情见：https://blog.csdn.net/gxzhaha/article/details/108115777。正则表达式：^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", example = "15824657732")
     @Pattern(regexp = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", message = "电话号码格式不正确！")
     private String telPhone;
 
-    @ApiModelProperty(value = "角色(此处传入角色在系统中所对应的唯一id)。符合UUID格式。参考：http://www.uuid.online", example = "68f9cca6-642c-4a2c-a37f-ab16124b81df")
+    @ApiModelProperty(value = "角色ID。符合UUID格式。参考：http://www.uuid.online", example = "68f9cca6-642c-4a2c-a37f-ab16124b81df")
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
     private String roleId;
 
-    @ApiModelProperty(value = "工号。在0和2147483647之间", example = "8")
-    @Range(min = 0, max = 2147483647, message = "工号只能在0和2147483647之间")
+    @ApiModelProperty(value = "工号。0-2147483647", example = "8")
+    @Range(min = 0, max = 2147483647, message = "有效工号范围：0-2147483647")
     private Integer employeeId;
 
     @ApiModelProperty(value = "待排序的列名。默认为键值列", example = "user_id")

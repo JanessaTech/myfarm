@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UUIDValidator.class)
-public @interface UUIDValueValidator {
+@Constraint(validatedBy = MultipleUUIDValidator.class)
+public @interface MultipleUUIDValueValidator {
     String message() default "";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

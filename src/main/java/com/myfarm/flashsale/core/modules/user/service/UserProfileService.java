@@ -4,15 +4,16 @@ import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.user.dto.UserProfileDto;
 import com.myfarm.flashsale.core.modules.user.dto.filter.UserProfileFilter;
 import com.myfarm.flashsale.core.modules.user.exception.UserProfileBusinessException;
+import com.myfarm.flashsale.core.modules.user.exception.UserProfileNotFoundException;
+import com.myfarm.flashsale.core.modules.user.exception.UserProfileParameterException;
 
 import java.util.List;
 
 public interface UserProfileService {
-    PageInfo<UserProfileDto> getUserProfilesByFilter(UserProfileFilter userProfileFilter, int page, int pageSize) throws UserProfileBusinessException;
-    UserProfileDto getUserProfileById(String userId) throws UserProfileBusinessException;
-    void addUserProfile(UserProfileDto userProfileDto) throws UserProfileBusinessException;
-    UserProfileDto updateUserProfile(UserProfileDto userProfileDto) throws UserProfileBusinessException;
-    void deleteUserProfileById(String userId) throws UserProfileBusinessException;
-    void deleteUserProfileByIds(List<String> userIds) throws UserProfileBusinessException;
+    PageInfo<UserProfileDto> getUserProfilesByFilter(UserProfileFilter userProfileFilter, int page, int pageSize) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
+    UserProfileDto getUserProfileById(String userId) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
+    void addUserProfile(UserProfileDto userProfileDto) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
+    UserProfileDto updateUserProfile(UserProfileDto userProfileDto) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
+    void deleteUserProfileByIds(List<String> userIds)  throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
     //void setUserProfileSite(String siteId, String userId) throws UserProfileException;
 }
