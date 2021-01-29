@@ -3,7 +3,9 @@ package com.myfarm.flashsale.core.modules.provider.service.imp;
 import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.provider.dto.ProviderDto;
 import com.myfarm.flashsale.core.modules.provider.dto.filter.ProviderFilter;
-import com.myfarm.flashsale.core.modules.provider.exception.ProviderException;
+import com.myfarm.flashsale.core.modules.provider.exception.ProviderBusinessException;
+import com.myfarm.flashsale.core.modules.provider.exception.ProviderNotFoundException;
+import com.myfarm.flashsale.core.modules.provider.exception.ProviderParameterException;
 import com.myfarm.flashsale.core.modules.provider.repository.mappers.ProviderMapper;
 import com.myfarm.flashsale.core.modules.provider.service.ProviderService;
 import org.slf4j.Logger;
@@ -24,42 +26,37 @@ public class ProviderServiceImp implements ProviderService {
     private ProviderMapper providerMapper;
 
     @Override
-    public PageInfo<ProviderDto> getProvidersByFilter(ProviderFilter providerFilter, int page, int pageSize) throws ProviderException {
+    public PageInfo<ProviderDto> getProvidersByFilter(ProviderFilter providerFilter, int page, int pageSize) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
         return null;
     }
 
     @Override
-    public ProviderDto getProviderById(String providerId) throws ProviderException {
+    public ProviderDto getProviderById(String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
         return null;
     }
 
     @Override
-    public void addProvider(ProviderDto providerDto) throws ProviderException {
+    public void addProvider(ProviderDto providerDto) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
 
     }
 
     @Override
-    public ProviderDto updateProvider(ProviderDto providerDto) throws ProviderException {
+    public ProviderDto updateProvider(ProviderDto providerDto) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
         return null;
     }
 
     @Override
-    public ProviderDto setProviderOnLine(String providerId) throws ProviderException {
+    public ProviderDto setProviderOnLine(String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
         return null;
     }
 
     @Override
-    public ProviderDto setProviderOffLine(String providerId) throws ProviderException {
+    public ProviderDto setProviderOffLine(String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
         return null;
     }
 
     @Override
-    public void deleteProviderById(String providerId) throws ProviderException {
-
-    }
-
-    @Override
-    public void deleteProviderByIds(List<String> providerIds) {
+    public void deleteProviderByIds(List<String> providerIds) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
 
     }
 }

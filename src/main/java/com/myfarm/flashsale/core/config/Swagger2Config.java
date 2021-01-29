@@ -66,6 +66,10 @@ public class Swagger2Config {
         tags.add(new Tag("provider", "供应商相关操作"));
         tags.add(new Tag("production", "商品相关操作"));
         tags.add(new Tag("site", "自提店相关操作"));
+        tags.add(new Tag("audit", "审计相关操作"));
+        tags.add(new Tag("cart", "购物车相关操作"));
+        tags.add(new Tag("order", "订单相关操作"));
+        tags.add(new Tag("payment", "支付相关操作"));
         Tag[] res = new Tag[tags.size()];
         return tags.toArray(res);
     }

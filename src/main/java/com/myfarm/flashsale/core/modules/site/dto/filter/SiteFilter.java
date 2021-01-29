@@ -30,11 +30,10 @@ public class SiteFilter {
     @Pattern(regexp = "^[a-zA-Z0-9_-]{4,16}$", message = "团长名只能包含字母，数字，下划线，减号，且长度在4-16之间")
     private String leader;
 
-    @ApiModelProperty(value = "", example = "site_id")
+    @ApiModelProperty(value = "待排序的列名。默认为键值列", example = "site_id")
     private String orderBy = "site_id";
 
-
-    @ApiModelProperty(value = "待排序的列名。默认为键值列", example = "ASC")
+    @ApiModelProperty(value = "升序还是降序排序。有效枚举值：ASC, DESC", example = "ASC")
     @EnumValueValidator(enumClass = Constants.Order.class, message = "不是枚举有效值")
     private String order = Constants.Order.ASC.getCode();
 

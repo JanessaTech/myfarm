@@ -68,6 +68,42 @@ public class Constants {
         }
     }
 
+    public enum ProviderStatus{
+        In_business("In_business", ""),
+        Out_business("Out_business", "");
+        private String status;
+        private String des;
+        ProviderStatus(String status, String des){
+            this.status = status;
+            this.des = des;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getDes() {
+            return des;
+        }
+
+        public void setDes(String des) {
+            this.des = des;
+        }
+
+        @Override
+        public String toString() {
+            return "SiteStatus{" +
+                    "status='" + status + '\'' +
+                    ", des='" + des + '\'' +
+                    '}';
+        }
+    }
+
+
     //swagger related info
     public static final String API_TITLE = "农菜鲜后端api手册";
     public static final String project_description = "农菜鲜项目描述";
