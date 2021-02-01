@@ -40,7 +40,7 @@ public class Swagger2Config {
                 .globalResponseMessage(RequestMethod.DELETE, globalResponseMessageInInfo())
                 .apiInfo(apiInfo())
                 .host(hostInfo())
-                .tags(new Tag("User", "用户及用户角色相关操作"), moreTagInfo())
+                .tags(new Tag("user", "用户及用户角色相关操作"), moreTagInfo())
                 .select()
                 //为当前包下controller生成API文档
                 .apis(RequestHandlerSelectors.basePackage("com.myfarm.flashsale.core"))

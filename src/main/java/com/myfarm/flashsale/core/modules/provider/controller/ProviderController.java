@@ -34,7 +34,7 @@ public class ProviderController {
     private ProviderService providerService;
 
 
-    @ApiOperation(value = "根据过滤条件返回符合条件的供应商", notes = "【供应商/供应商列表】相关查询操作。该页面有三个场景触发该调用：<br>1.点击查询按钮  <br>2.对返回的供应商列表进行排序操作  <br>3.添加供应商成功后对供应商列表进行刷新")
+    @ApiOperation(value = "根据过滤条件返回符合条件的供应商", notes = "【供应商/供应商列表】相关查询操作。")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
@@ -160,7 +160,7 @@ public class ProviderController {
     public FarmResponse<Object> deleteProviderByIds(@RequestParam(value = "providerIds", required = true)
                                                         @NotBlank(message = "providerIds不能是空值")
                                                         @MultipleUUIDValueValidator(message = "参数providerIds含有无效的providerId。providerId必须符合UUID格式。参考：http://www.uuid.online/")
-                                                        @ApiParam(value = "待删除的用户的providerId。当多个自提店需要删除，用','拼接providerId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")
+                                                        @ApiParam(value = "待删除的供应商的providerId。当多个供应商需要删除，用','拼接providerId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")
                                                                 String providerIds) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException{
         //code
         return FarmResponse.success();

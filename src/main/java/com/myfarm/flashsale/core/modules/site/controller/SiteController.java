@@ -35,7 +35,7 @@ public class SiteController {
     @Autowired
     private SiteService siteService;
 
-    @ApiOperation(value = "根据过滤条件返回符合条件的自提店", notes = "【自提店/自提店列表】相关查询操作。该页面有三个场景触发该调用：<br>1.点击查询按钮  <br>2.对返回的自提店列表进行排序操作  <br>3.添加自提店成功后对自提店列表进行刷新")
+    @ApiOperation(value = "根据过滤条件返回符合条件的自提店", notes = "【自提店/自提店列表】相关查询操作")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
@@ -162,7 +162,7 @@ public class SiteController {
     public FarmResponse<Object> deleteSiteByIds(@RequestParam(value = "siteIds", required = true)
                                                 @NotBlank(message = "siteIds不能是空值")
                                                 @MultipleUUIDValueValidator(message = "参数siteIds含有无效的siteId。userId必须符合UUID格式。参考：http://www.uuid.online/")
-                                                @ApiParam(value = "待删除的用户的siteId。当多个自提店需要删除，用','拼接siteId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")
+                                                @ApiParam(value = "待删除的自提店的siteId。当多个自提店需要删除，用','拼接siteId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")
                                                             String siteIds) throws SiteParameterException, SiteBusinessException, SiteNotFoundException{
         //code
         return FarmResponse.success();

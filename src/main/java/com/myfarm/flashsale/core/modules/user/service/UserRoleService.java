@@ -15,6 +15,6 @@ public interface UserRoleService{
      */
     List<UserRoleDto> getAllRoles() throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException;
     UserRoleDto getUserRoleById(String roleId) throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException;
-    void addRole(String role) throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException;
+    UserRoleDto addRole(String role) throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException;
     void deleteRole(String roleId) throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException;
 }

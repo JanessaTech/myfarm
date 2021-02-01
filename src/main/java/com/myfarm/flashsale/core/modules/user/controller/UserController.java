@@ -24,7 +24,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
-@Api(value = "账户管理。主要用来负责角色的增删查及用户对象的增删查改", tags = "User")
+@Api(value = "账户管理。主要用来负责角色的增删查及用户对象的增删查改", tags = "user")
 @Validated
 @RestController
 @RequestMapping("/users")
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "根据过滤条件返回符合条件的用户",
-            notes = "【账户/用户列表】页面下的相关查询操作。该页面有三个场景触发该调用：<br>1.点击查询按钮  <br>2.对返回的用户列表进行排序操作  <br>3.添加用户成功后对用户列表进行刷新")
+            notes = "【账户/用户列表】页面下的相关查询操作")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
@@ -146,7 +146,7 @@ public class UserController {
     }
 
 
-    @ApiOperation(value = "返回系统里所有的角色", notes = "【账户/角色管理】页面下的 <角色列表>查询操作。返回结果以<角色ID>列进行升序排序")
+    @ApiOperation(value = "返回系统里所有的角色", notes = "【账户/角色管理】页面下的 <角色列表>。返回结果以<角色ID>列进行升序排序")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
@@ -163,12 +163,12 @@ public class UserController {
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @PostMapping(value = "/roles", produces = {"application/json"})
-    public FarmResponse<Object> addRole(@RequestParam(value = "role", required = true)
+    public FarmResponse<UserRoleDto> addRole(@RequestParam(value = "role", required = true)
                                         @Pattern(regexp = "^[a-zA-Z]{3,10}$", message = "角色名为3-10位大小写字母组成")
                                         @ApiParam(value = "角色。输入的内容符合正则表达式：^[a-zA-Z]{3,10}$", required = true, example = "admin")
                                         String role) throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException{
        //code
-        return FarmResponse.success();
+        return null;
     }
 
     @ApiOperation(value = "删除角色", notes = "【账户/角色管理】页面下的<角色列表>的删除操作")
@@ -176,7 +176,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
-    @PostMapping(value = "/roles/{roleId}", produces = {"application/json"})
+    @DeleteMapping(value = "/roles/{roleId}", produces = {"application/json"})
     public FarmResponse<Object> deleteRole(@PathVariable(value = "roleId", required = true)
                                         @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
                                         @ApiParam(value = "角色ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")

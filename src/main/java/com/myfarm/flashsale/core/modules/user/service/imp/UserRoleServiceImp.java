@@ -34,8 +34,8 @@ public class UserRoleServiceImp implements UserRoleService {
     }
 
     @Override
-    public void addRole(String role) throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException {
-
+    public UserRoleDto addRole(String role) throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException {
+        return null;
     }
 
     @Override

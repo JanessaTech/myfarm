@@ -16,18 +16,18 @@
                         userId="juan"
                         password="12345">
         </jdbcConnection>
-        <javaModelGenerator targetPackage="com.myfarm.flashsale.core.modules.user.model" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.myfarm.flashsale.core.modules.production.model" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="mbg.core.mappers.user" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mbg.core.mappers.production" targetProject="src/main/resources">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
         <!-- Mapper 接口文件的位置 -->
-        <javaClientGenerator targetPackage="com.myfarm.flashsale.core.modules.user.repository.mappers" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.myfarm.flashsale.core.modules.production.repository.mappers" targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         <!-- 相关表的配置 -->
-        <table schema="public" tableName="user_role" delimitIdentifiers="true"/>
+        <table schema="public" tableName="band" delimitIdentifiers="true"/>
     </context>
 </generatorConfiguration>

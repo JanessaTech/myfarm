@@ -23,7 +23,7 @@ public class ProviderFilter {
     private String telPhone;
 
 
-    @ApiModelProperty(value = "营业状态", example = "In_business")
+    @ApiModelProperty(value = "营业状态。有效枚举值：In_business，Out_business ", example = "In_business")
     @EnumValueValidator(enumClass = Constants.ProviderStatus.class, message = "不是枚举有效值")
     private String operatingStatus;
 
