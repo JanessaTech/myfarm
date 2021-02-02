@@ -17,5 +17,4 @@ public interface SiteService {
     SiteDto setSiteOnLine(String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
     SiteDto setSiteOffLine(String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
     void deleteSiteByIds(List<String> siteIds) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
-
 }

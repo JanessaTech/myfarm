@@ -22,11 +22,11 @@ public class ProductionFilter {
     @Pattern(regexp = "^[a-zA-Z0-9_-]{4,16}$", message = "供应商名称只能包含字母，数字，下划线，减号，且长度在4-30之间")
     private String providerName;
 
-    @ApiModelProperty(value = "分类。符合UUID格式。参考：http://www.uuid.online", example = "53355ca3-6428-455a-8d84-6e1a488dd76d")
+    @ApiModelProperty(value = "分类ID。符合UUID格式。参考：http://www.uuid.online", example = "53355ca3-6428-455a-8d84-6e1a488dd76d")
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
     private String categoryId;
 
-    @ApiModelProperty(value = "品牌。符合UUID格式。参考：http://www.uuid.online", example = "2010950c-99c6-440b-8c32-83d7051aa606")
+    @ApiModelProperty(value = "品牌ID。符合UUID格式。参考：http://www.uuid.online", example = "2010950c-99c6-440b-8c32-83d7051aa606")
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
     private String bandId;
 

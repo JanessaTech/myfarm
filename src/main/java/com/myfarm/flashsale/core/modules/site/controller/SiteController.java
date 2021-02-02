@@ -57,7 +57,7 @@ public class SiteController {
     @ApiOperation(value = "返回siteId对应的自提店完整对象", notes = "【自提店/自提店列表】页面下点击修改操作时触发调用")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "", response = FarmResponse.class)
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @GetMapping(value = "/{siteId}", produces = {"application/json"})
     public FarmResponse<SiteDto> getSiteById(@PathVariable(value = "siteId", required = true)
@@ -167,4 +167,5 @@ public class SiteController {
         //code
         return FarmResponse.success();
     }
+
 }

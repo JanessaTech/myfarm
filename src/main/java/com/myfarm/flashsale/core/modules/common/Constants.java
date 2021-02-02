@@ -47,16 +47,8 @@ public class Constants {
             return status;
         }
 
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
         public String getDes() {
             return des;
-        }
-
-        public void setDes(String des) {
-            this.des = des;
         }
 
         @Override
@@ -82,21 +74,13 @@ public class Constants {
             return status;
         }
 
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
         public String getDes() {
             return des;
         }
 
-        public void setDes(String des) {
-            this.des = des;
-        }
-
         @Override
         public String toString() {
-            return "SiteStatus{" +
+            return "ProviderStatus{" +
                     "status='" + status + '\'' +
                     ", des='" + des + '\'' +
                     '}';
@@ -118,21 +102,13 @@ public class Constants {
             return status;
         }
 
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
         public String getDes() {
             return des;
         }
 
-        public void setDes(String des) {
-            this.des = des;
-        }
-
         @Override
         public String toString() {
-            return "SiteStatus{" +
+            return "ProductionStatus{" +
                     "status='" + status + '\'' +
                     ", des='" + des + '\'' +
                     '}';
@@ -154,21 +130,69 @@ public class Constants {
             return status;
         }
 
-        public void setStatus(String status) {
+        public String getDes() {
+            return des;
+        }
+
+        @Override
+        public String toString() {
+            return "AuditStatus{" +
+                    "status='" + status + '\'' +
+                    ", des='" + des + '\'' +
+                    '}';
+        }
+    }
+
+    public enum PayWay{
+        weichat("weichat", "微信"),
+        alipay("alipay", "支付宝");
+        private String status;
+        private String des;
+        PayWay(String status, String des){
             this.status = status;
+            this.des = des;
+        }
+
+        public String getStatus() {
+            return status;
         }
 
         public String getDes() {
             return des;
         }
 
-        public void setDes(String des) {
+        @Override
+        public String toString() {
+            return "PayWay{" +
+                    "status='" + status + '\'' +
+                    ", des='" + des + '\'' +
+                    '}';
+        }
+    }
+
+    public enum OrderStatus{
+        Waiting_for_pay("Waiting_for_pay", "待付款"),
+        Waiting_for_fetch("Waiting_for_fetch", "待提货"),
+        fetched("fetched", "已提货"),
+        close("close", "交易关闭");
+        private String status;
+        private String des;
+        OrderStatus(String status, String des){
+            this.status = status;
             this.des = des;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public String getDes() {
+            return des;
         }
 
         @Override
         public String toString() {
-            return "SiteStatus{" +
+            return "OrderStatus{" +
                     "status='" + status + '\'' +
                     ", des='" + des + '\'' +
                     '}';

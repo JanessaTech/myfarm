@@ -4,6 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.common.FarmResponse;
 import com.myfarm.flashsale.core.modules.common.validation.MultipleUUIDValueValidator;
 import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
+import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
+import com.myfarm.flashsale.core.modules.site.exception.SiteBusinessException;
+import com.myfarm.flashsale.core.modules.site.exception.SiteNotFoundException;
+import com.myfarm.flashsale.core.modules.site.exception.SiteParameterException;
 import com.myfarm.flashsale.core.modules.user.dto.UserProfileDto;
 import com.myfarm.flashsale.core.modules.user.dto.UserRoleDto;
 import com.myfarm.flashsale.core.modules.user.dto.filter.UserProfileFilter;
@@ -144,6 +148,23 @@ public class UserController {
         //code
         return FarmResponse.success();
     }
+
+    @ApiOperation(value = "返回userId当前设置的自提店完整对象", notes = "【前端：订单确认】页面下自提店信息展示")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
+    })
+    @GetMapping(value = "/{userId}/site", produces = {"application/json"})
+    public FarmResponse<SiteDto> getSiteByUserId(@PathVariable(value = "userId", required = true)
+                                                 @NotBlank(message = "userId不能是空值")
+                                                 @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
+                                                 @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
+                                                         String userId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
+        //code
+        return null;
+    }
+
+
 
 
     @ApiOperation(value = "返回系统里所有的角色", notes = "【账户/角色管理】页面下的 <角色列表>。返回结果以<角色ID>列进行升序排序")

@@ -23,7 +23,7 @@ public class ProductionDto {
     @ApiModelProperty(value = "商品图片", required = true)
     private List<String> picUrls;
 
-    @ApiModelProperty(value = "分类。符合UUID格式。参考：http://www.uuid.online", required = true, example = "53355ca3-6428-455a-8d84-6e1a488dd76d")
+    @ApiModelProperty(value = "分类ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "53355ca3-6428-455a-8d84-6e1a488dd76d")
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
     private String categoryId;  //always fill
 

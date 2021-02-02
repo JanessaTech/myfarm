@@ -1,6 +1,7 @@
 package com.myfarm.flashsale.core.modules.user.service.imp;
 
 import com.github.pagehelper.PageInfo;
+import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
 import com.myfarm.flashsale.core.modules.user.dto.UserProfileDto;
 import com.myfarm.flashsale.core.modules.user.dto.filter.UserProfileFilter;
 import com.myfarm.flashsale.core.modules.user.exception.UserProfileBusinessException;
@@ -51,5 +52,15 @@ public class UserProfileServiceImp implements UserProfileService {
     @Override
     public void deleteUserProfileByIds(List<String> userIds) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
 
+    }
+
+    @Override
+    public void setSite(String userId, String siteId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
+    }
+
+    @Override
+    public SiteDto getSiteByUserId(String userId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+        return null;
     }
 }

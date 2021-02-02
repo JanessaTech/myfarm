@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-@ApiModel
+@ApiModel(value = "自提店信息")
 public class SiteDto {
     @ApiModelProperty(value = "自提店ID。符合UUID格式。参考：http://www.uuid.online", example = "d9a4d5d5-0c9a-4508-952c-091851285a54")
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
