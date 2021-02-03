@@ -14,4 +14,5 @@ public @interface MultipleUUIDValueValidator {
     String message() default "";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+    boolean isAllowEmpty() default false;
 }

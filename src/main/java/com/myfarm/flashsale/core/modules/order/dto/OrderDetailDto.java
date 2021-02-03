@@ -3,6 +3,7 @@ package com.myfarm.flashsale.core.modules.order.dto;
 import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Pattern;
 
@@ -44,6 +45,7 @@ public class OrderDetailDto {
     private String providerName;
 
     @ApiModelProperty(value = "数量", example = "1")
+    @Range(min = 0, message = "数量不能小于0")
     private Integer quantity;
 
     @ApiModelProperty(value = "加入购物车的时间。主要用来对订单里的商品进行排序", example = "2021.01.12 13:21:77")

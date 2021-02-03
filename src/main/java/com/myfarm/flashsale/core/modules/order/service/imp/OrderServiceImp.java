@@ -48,12 +48,7 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
-    public void updateOrderStatus(String newStatus, String orderId) throws OrderParameterException, OrderBusinessException, OrderNotFoundException {
-
-    }
-
-    @Override
-    public void updateOrderPaymentId(String paymentId, String orderId) throws OrderParameterException, OrderBusinessException, OrderNotFoundException {
+    public void updateOrder(OrderDto orderDto) throws OrderParameterException, OrderBusinessException, OrderNotFoundException {
 
     }
 }

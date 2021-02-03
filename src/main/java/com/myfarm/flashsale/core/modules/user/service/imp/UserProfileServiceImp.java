@@ -1,6 +1,7 @@
 package com.myfarm.flashsale.core.modules.user.service.imp;
 
 import com.github.pagehelper.PageInfo;
+import com.myfarm.flashsale.core.modules.common.Token;
 import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
 import com.myfarm.flashsale.core.modules.user.dto.UserProfileDto;
 import com.myfarm.flashsale.core.modules.user.dto.filter.UserProfileFilter;
@@ -62,5 +63,40 @@ public class UserProfileServiceImp implements UserProfileService {
     @Override
     public SiteDto getSiteByUserId(String userId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
         return null;
+    }
+
+    @Override
+    public Integer getVerificationCode(String telPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+        return null;
+    }
+
+    @Override
+    public void userRegister(Integer verificationCode, UserProfileDto userProfileDto) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
+    }
+
+    @Override
+    public Token login(String name, String psw) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+        return null;
+    }
+
+    @Override
+    public void logout(String name) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
+    }
+
+    @Override
+    public void updatePassword(String userId, String oldPassword, String newPassword) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
+    }
+
+    @Override
+    public void updateTelPhone(Integer verificationCode, String newPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
+    }
+
+    @Override
+    public void updateProfile(String profile) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
     }
 }

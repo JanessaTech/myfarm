@@ -14,4 +14,5 @@ public @interface UUIDValueValidator {
     String message() default "";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+    boolean isAllowEmpty() default true;
 }

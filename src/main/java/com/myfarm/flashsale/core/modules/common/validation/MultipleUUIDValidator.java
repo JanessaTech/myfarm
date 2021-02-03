@@ -8,15 +8,23 @@ import java.util.UUID;
 
 public class MultipleUUIDValidator implements ConstraintValidator<MultipleUUIDValueValidator, String> {
     private String message;
+    private boolean isAllowEmpty;
     @Override
     public void initialize(MultipleUUIDValueValidator constraintAnnotation) {
         this.message = constraintAnnotation.message();
+        this.isAllowEmpty = constraintAnnotation.isAllowEmpty();
     }
 
     @Override
     public boolean isValid(String uuids, ConstraintValidatorContext context) {
-        if(StringUtil.isEmpty(uuids))
-            return Boolean.FALSE;
+        if(isAllowEmpty){
+            if(StringUtil.isEmpty(uuids))
+                return Boolean.TRUE;
+        }else{
+            if(StringUtil.isEmpty(uuids))
+                return Boolean.FALSE;
+        }
+
         String[] uuidArr = uuids.split(",");
         try{
             for(String uuid : uuidArr){

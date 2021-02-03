@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@ApiModel(value = "支付详情")
+@ApiModel
 public class PaymentDto {
     @ApiModelProperty(value = "支付ID。符合UUID格式。参考：http://www.uuid.online ", example = "ec2f8761-2a6d-4bb9-a82d-b4490dadd459")
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
@@ -25,7 +25,6 @@ public class PaymentDto {
     @NotNull(message = "支付号不能为null")
     @NotBlank(message = "支付号不能为空值")
     private String payno;
-
 
     @ApiModelProperty(value = "支付时间", required = true, example = "2021-01-13  14:15:05")
     //此处应该添加时间类型的字符串校验
