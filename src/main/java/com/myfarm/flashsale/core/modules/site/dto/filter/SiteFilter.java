@@ -22,7 +22,7 @@ public class SiteFilter {
     @Pattern(regexp = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", message = "电话号码格式不正确！")
     private String telPhone;
 
-    @ApiModelProperty(value = "营业状态", example = "In_business")
+    @ApiModelProperty(value = "营业状态。有效枚举值：In_business， Out_business", example = "In_business")
     @EnumValueValidator(enumClass = Constants.SiteStatus.class, message = "不是枚举有效值")
     private String operatingStatus;
 

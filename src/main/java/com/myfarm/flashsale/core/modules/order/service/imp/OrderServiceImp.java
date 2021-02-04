@@ -33,12 +33,12 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
-    public PageInfo<List<OrderDto>> getOrdersByFilter(OrderFilter orderFilter, int page, int pageSize) throws OrderParameterException, OrderBusinessException, OrderNotFoundException {
+    public PageInfo<OrderDto> getOrdersByFilter(OrderFilter orderFilter, int page, int pageSize) throws OrderParameterException, OrderBusinessException, OrderNotFoundException {
         return null;
     }
 
     @Override
-    public PageInfo<List<OrderDetailDto>> getOrderDetails(OrderDetailFilter orderDetailFilter) throws OrderParameterException, OrderBusinessException, OrderNotFoundException {
+    public PageInfo<OrderDetailDto> getOrderDetails(OrderDetailFilter orderDetailFilter) throws OrderParameterException, OrderBusinessException, OrderNotFoundException {
         return null;
     }
 

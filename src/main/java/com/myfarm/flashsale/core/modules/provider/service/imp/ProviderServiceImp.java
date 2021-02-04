@@ -46,12 +46,7 @@ public class ProviderServiceImp implements ProviderService {
     }
 
     @Override
-    public ProviderDto setProviderOnLine(String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
-        return null;
-    }
-
-    @Override
-    public ProviderDto setProviderOffLine(String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
+    public ProviderDto setProviderStatus(String providerId, String status) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
         return null;
     }
 

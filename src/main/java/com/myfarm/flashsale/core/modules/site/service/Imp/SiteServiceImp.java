@@ -46,12 +46,7 @@ public class SiteServiceImp implements SiteService {
     }
 
     @Override
-    public SiteDto setSiteOnLine(String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
-        return null;
-    }
-
-    @Override
-    public SiteDto setSiteOffLine(String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
+    public SiteDto setSiteStatus(String siteId, String status) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
         return null;
     }
 

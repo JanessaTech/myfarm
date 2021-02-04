@@ -30,6 +30,7 @@ public class UserProfileServiceImp implements UserProfileService {
     @Resource
     private UserRoleMapper userRoleMapper;
 
+
     @Override
     public PageInfo<UserProfileDto> getUserProfilesByFilter(UserProfileFilter userProfileFilter, int page, int pageSize) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
         return null;
@@ -37,6 +38,11 @@ public class UserProfileServiceImp implements UserProfileService {
 
     @Override
     public UserProfileDto getUserProfileById(String userId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+        return null;
+    }
+
+    @Override
+    public String getUserProfileByTelPhone(String telPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
         return null;
     }
 
@@ -56,32 +62,17 @@ public class UserProfileServiceImp implements UserProfileService {
     }
 
     @Override
-    public void setSite(String userId, String siteId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-
-    }
-
-    @Override
     public SiteDto getSiteByUserId(String userId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
         return null;
     }
 
     @Override
-    public Integer getVerificationCode(String telPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-        return null;
+    public void getVerificationCode(String telPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
     }
 
     @Override
     public void userRegister(Integer verificationCode, UserProfileDto userProfileDto) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-
-    }
-
-    @Override
-    public Token login(String name, String psw) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-        return null;
-    }
-
-    @Override
-    public void logout(String name) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
 
     }
 
@@ -91,12 +82,22 @@ public class UserProfileServiceImp implements UserProfileService {
     }
 
     @Override
-    public void updateTelPhone(Integer verificationCode, String newPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+    public void updateTelPhone(String userId, Integer verificationCode, String newPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
 
     }
 
     @Override
-    public void updateProfile(String profile) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+    public void updateProfile(String userId, String profile) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
+    }
+
+    @Override
+    public void updateName(String userId, String name) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
+    }
+
+    @Override
+    public void setSite(String userId, String siteId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
 
     }
 }

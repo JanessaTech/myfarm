@@ -46,12 +46,7 @@ public class ProductionServiceImp implements ProductionService {
     }
 
     @Override
-    public ProductionDto setProductionOnLine(String productionId) throws ProductionParameterException, ProductionBusinessException, ProductionNotFoundException {
-        return null;
-    }
-
-    @Override
-    public ProductionDto setProductionOffLine(String productionId) throws ProductionParameterException, ProductionBusinessException, ProductionNotFoundException {
+    public ProductionDto setProductionStatus(String productionId, String status) throws ProductionParameterException, ProductionBusinessException, ProductionNotFoundException {
         return null;
     }
 

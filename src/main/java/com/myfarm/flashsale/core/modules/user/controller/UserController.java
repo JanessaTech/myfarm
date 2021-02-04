@@ -8,6 +8,7 @@ import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
 import com.myfarm.flashsale.core.modules.site.exception.SiteBusinessException;
 import com.myfarm.flashsale.core.modules.site.exception.SiteNotFoundException;
 import com.myfarm.flashsale.core.modules.site.exception.SiteParameterException;
+import com.myfarm.flashsale.core.modules.user.dto.LoginInfo;
 import com.myfarm.flashsale.core.modules.user.dto.UserProfileDto;
 import com.myfarm.flashsale.core.modules.user.dto.UserRoleDto;
 import com.myfarm.flashsale.core.modules.user.dto.filter.UserProfileFilter;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
@@ -49,16 +52,31 @@ public class UserController {
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @PostMapping(value = "/login", produces = {"application/json"})
-    public FarmResponse<UserProfileDto> login(@RequestParam(value = "name", required = true)
-                                                          @Pattern(regexp = "^[a-zA-Z0-9_-]{4,16}$", message = "用户名只能包含字母，数字，下划线，减号，且长度在4-16之间")
-                                                          @ApiParam(value = "用户名", required = true)
-                                                          String name,
-                                              @RequestParam(value = "password", required = true)
-                                                          @Pattern(regexp = "^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$", message = "最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符")
-                                                          @ApiParam(value = "密码", required = true)
-                                                          String password) throws UserProfileBusinessException, UserRoleBusinessException {
+    public FarmResponse<LoginInfo> login(@RequestParam(value = "telPhone", required = true)
+                                         @NotNull(message = "telPhone不能为null")
+                                         @NotEmpty(message = "telPhone不能为空值")
+                                         @Pattern(regexp = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", message = "电话号码格式不正确")
+                                         @ApiParam(value = "电话。支持电信、移动、联通等运营商，详情见：https://blog.csdn.net/gxzhaha/article/details/108115777。正则表达式：^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", required = true, example = "15824657732")
+                                                 String telPhone,
+                                         @RequestParam(value = "password", required = true)
+                                        @Pattern(regexp = "^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$", message = "最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符")
+                                        @ApiParam(value = "密码", required = true)
+                                             String password) throws UserProfileBusinessException, UserRoleBusinessException {
+        return null;
+    }
+
+    @ApiOperation(value = "登出", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
+    })
+    @PostMapping(value = "/logout")
+    public FarmResponse<Object> logout() throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+        //code
         return FarmResponse.success();
     }
+
+
 
     @ApiOperation(value = "根据过滤条件返回符合条件的用户",
             notes = "【账户/用户列表】页面下的相关查询操作")
@@ -139,8 +157,8 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
-    @DeleteMapping
-    public FarmResponse<Object> deleteUserProfileById(@RequestParam(value = "userIds", required = true)
+    @DeleteMapping(value = "/{userIds}")
+    public FarmResponse<Object> deleteUserProfileById(@PathVariable(value = "userIds", required = true)
                                                       @NotBlank(message = "userIds不能是空值")
                                                       @MultipleUUIDValueValidator(message = "参数userIds含有无效的userId。userId必须符合UUID格式。参考：http://www.uuid.online/")
                                                       @ApiParam(value = "待删除的用户的userId。当多个用户需要删除，用','拼接userId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")
@@ -148,6 +166,7 @@ public class UserController {
         //code
         return FarmResponse.success();
     }
+
 
     @ApiOperation(value = "返回userId当前设置的自提店完整对象", notes = "【前端：订单确认】页面下自提店信息展示")
     @ApiResponses(value = {
@@ -159,9 +178,152 @@ public class UserController {
                                                  @NotBlank(message = "userId不能是空值")
                                                  @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
                                                  @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
-                                                         String userId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
+                                                 String userId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
         //code
         return null;
+    }
+
+    @ApiOperation(value = "门店设置", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
+    })
+    @PostMapping(value = "/{userId}/site")
+    public FarmResponse<Object> setSite(@PathVariable(value = "userId", required = true)
+                                            @NotBlank(message = "userId不能是空值")
+                                            @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
+                                            @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
+                                                    String userId,
+                                        @RequestParam(value = "siteId", required = true)
+                                        @NotBlank(message = "siteId不能是空值")
+                                        @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
+                                        @ApiParam(value = "门店ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
+                                                String siteId) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+        //code
+        return FarmResponse.success();
+    }
+
+    @ApiOperation(value = "获取验证码", notes = "验证码以短信形式发送到telPhone对应的手机")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
+    })
+    @GetMapping(value = "/verificationCode")
+    public FarmResponse<Object> getVerificationCode(@RequestParam(value = "telPhone", required = true)
+                                                     @NotNull(message = "telPhone不能为null")
+                                                     @NotEmpty(message = "telPhone不能为空值")
+                                                     @Pattern(regexp = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", message = "电话号码格式不正确")
+                                                     @ApiParam(value = "电话。支持电信、移动、联通等运营商，详情见：https://blog.csdn.net/gxzhaha/article/details/108115777。正则表达式：^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", required = true, example = "15824657732")
+                                                     String telPhone) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+        return FarmResponse.success();
+    }
+
+    @ApiOperation(value = "用户注册", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
+    })
+    @PostMapping(value = "/register", consumes = {"application/json"})
+    public FarmResponse<Object> userRegister(@RequestParam(value = "verificationCode", required = true)
+                                             @NotNull(message = "verificationCode不能为null")
+                                             Integer verificationCode,
+                                             @ApiParam(value = "手机验证码", required = true, example = "1234")
+                                             @RequestBody(required = true) @Valid UserProfileDto userProfileDto) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+        //code
+        return FarmResponse.success();
+    }
+
+
+
+    @ApiOperation(value = "修改密码", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
+    })
+    @PostMapping(value = "/{userId}/password")
+    public FarmResponse<Object> updatePassword(@PathVariable(value = "userId", required = true)
+                                                   @NotBlank(message = "userId不能是空值")
+                                                   @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
+                                                   @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
+                                                           String userId,
+                                               @RequestParam(value = "oldPassword", required = true)
+                                               @NotNull(message = "oldPassword不能为null")
+                                               @NotEmpty(message = "oldPassword不能为空值")
+                                               @Pattern(regexp = "^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$", message = "旧密码含有无效字符")
+                                               @ApiParam(value = "密码。密码规则：最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符。正则表达式：^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$", required = true, example = "NiC$4603")
+                                               String oldPassword,
+                                               @RequestParam(value = "newPassword", required = true)
+                                                   @NotNull(message = "newPassword不能为null")
+                                                   @NotEmpty(message = "newPassword不能为空值")
+                                                   @Pattern(regexp = "^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$", message = "新密码含有无效字符")
+                                                   @ApiParam(value = "密码。密码规则：最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符。正则表达式：^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$", required = true, example = "NiC$4603")
+                                                           String newPassword) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+        //code
+        return FarmResponse.success();
+    }
+
+    @ApiOperation(value = "更新电话", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
+    })
+    @PostMapping(value = "/{userId}/phone")
+    public FarmResponse<Object> updateTelPhone(@PathVariable(value = "userId", required = true)
+                                                   @NotBlank(message = "userId不能是空值")
+                                                   @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
+                                                   @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
+                                                           String userId,
+                                               @RequestParam(value = "verificationCode", required = true)
+                                               @NotNull(message = "verificationCode不能为null")
+                                               Integer verificationCode,
+                                               @RequestParam(value = "newPhone", required = true)
+                                               @NotNull(message = "newPhone不能为null")
+                                               @NotEmpty(message = "newPhone不能为空值")
+                                               @Pattern(regexp = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", message = "电话号码格式不正确")
+                                               @ApiParam(value = "电话。支持电信、移动、联通等运营商，详情见：https://blog.csdn.net/gxzhaha/article/details/108115777。正则表达式：^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", required = true, example = "15824657732")
+                                               String newPhone) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+        //code
+        return FarmResponse.success();
+    }
+
+    @ApiOperation(value = "更新头像", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
+    })
+    @PostMapping(value = "/{userId}/profile")
+    public FarmResponse<Object> updateProfile(@PathVariable(value = "userId", required = true)
+                                                  @NotBlank(message = "userId不能是空值")
+                                                  @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
+                                                  @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
+                                                          String userId,
+                                              @RequestParam(value = "profile", required = true)
+                                              @NotNull(message = "profile不能为null")
+                                              @NotEmpty(message = "profile不能为空值")
+                                              String profile) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+        //code
+        return FarmResponse.success();
+    }
+
+    @ApiOperation(value = "更新昵称", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
+            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
+    })
+    @PostMapping(value = "/{userId}/name")
+    public FarmResponse<Object> updateName(@PathVariable(value = "userId", required = true)
+                                              @NotBlank(message = "userId不能是空值")
+                                              @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
+                                              @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
+                                                      String userId,
+                                              @RequestParam(value = "name", required = true)
+                                              @NotNull(message = "name不能为null")
+                                              @NotEmpty(message = "name不能为空值")
+                                              @Pattern(regexp = "^[a-zA-Z0-9_-]{4,16}$", message = "用户名只能包含字母，数字，下划线，减号，且长度在4-16之间")
+                                                      @ApiParam(value = "用户名称。用户名规则：4到16位（字母，数字，下划线，减号）。正则表达式：^[a-zA-Z0-9_-]{4,16}$", required = true, example = "juan")
+                                                      String name) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+        //code
+        return FarmResponse.success();
     }
 
 

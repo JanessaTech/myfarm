@@ -12,6 +12,7 @@ import com.myfarm.flashsale.core.modules.order.exception.OrderBusinessException;
 import com.myfarm.flashsale.core.modules.order.exception.OrderNotFoundException;
 import com.myfarm.flashsale.core.modules.order.exception.OrderParameterException;
 import com.myfarm.flashsale.core.modules.order.repository.mappers.OrderMapper;
+import com.myfarm.flashsale.core.modules.order.service.OrderService;
 import io.swagger.annotations.*;
 import org.hibernate.validator.constraints.Range;
 import org.slf4j.Logger;
@@ -34,6 +35,8 @@ public class OrderController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private OrderService orderService;
     @Autowired
     private OrderMapper orderMapper;
 
@@ -61,7 +64,7 @@ public class OrderController {
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @GetMapping(consumes = {"application/json"}, produces = {"application/json"})
-    public FarmResponse<PageInfo<List<OrderDto>>> getOrdersByFilter(@RequestBody(required = true) @Valid OrderFilter orderFilter,
+    public FarmResponse<PageInfo<OrderDto>> getOrdersByFilter(@RequestBody(required = true) @Valid OrderFilter orderFilter,
                                                                     @RequestParam(value = "page", required = true, defaultValue = "0")
                                                                     @Range(min = 0, message = "页码不能小于0")
                                                                     @ApiParam(value = "页码(不能小于0)", required = true, defaultValue = "0", example = "0")
@@ -80,7 +83,7 @@ public class OrderController {
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @GetMapping(value = "/detail", consumes = {"application/json"}, produces = {"application/json"})
-    public FarmResponse<PageInfo<List<OrderDetailDto>>> getOrderDetails(@RequestBody(required = true)
+    public FarmResponse<PageInfo<OrderDetailDto>> getOrderDetails(@RequestBody(required = true)
                                                                         @Valid OrderDetailFilter orderDetailFilter) throws OrderParameterException, OrderBusinessException, OrderNotFoundException{
         //code
         return null;

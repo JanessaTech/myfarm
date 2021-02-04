@@ -1,7 +1,9 @@
 package com.myfarm.flashsale.core.modules.provider.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.myfarm.flashsale.core.modules.common.Constants;
 import com.myfarm.flashsale.core.modules.common.FarmResponse;
+import com.myfarm.flashsale.core.modules.common.validation.EnumValueValidator;
 import com.myfarm.flashsale.core.modules.common.validation.MultipleUUIDValueValidator;
 import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
 import com.myfarm.flashsale.core.modules.provider.dto.ProviderDto;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 @Api(value = "供应商管理。主要负责供应商的增删查改等相关操作", tags = "provider")
 @Validated
@@ -103,47 +107,28 @@ public class ProviderController {
         return null;
     }
 
-    @ApiOperation(value = "对providerId代表的供应商做上线操作", notes = "【供应商/供应商列表】页面下的 <上线>操作。 是否允许上线一个供应商，取决于供应商当前的状态。下面的表格说明不同状态下可以允许的操作：<br>" +
-                                                           "<table border=\"1\" align=\"center\"> <tr><th>供应商营业状态</th><th>修改</th><th>删除</th><th>上线</th><th>下线</th></tr>" +
-                                                            "<tr><td>In_business</td><td>X</td><td>X</td><td>X</td><td>V</td></tr>" +
-                                                            "<tr><td>Out_business</td><td>V</td><td>V</td><td>V</td><td>X</td></tr>" +
-                                                            "</table>" +
-                                                            "<br>" +
-                                                            "Note: X代表动作不允许，V代表动作允许")
+    @ApiOperation(value = "设置providerId代表的供应商的状态", notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
-    @PutMapping(value = "/{providerId}/on")
-    public FarmResponse<ProviderDto> setProviderOnLine(@PathVariable(value = "providerId", required = true)
-                                                           @NotBlank(message = "providerId不能是空值")
+    @PutMapping(value = "/{providerId}/status")
+    public FarmResponse<ProviderDto> setProviderStatus(@PathVariable(value = "providerId", required = true)
+                                                           @NotBlank(message = "providerId不能是null值")
+                                                           @NotEmpty(message = "providerId不能是空值")
                                                            @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
                                                            @ApiParam(value = "供应商ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
-                                                                   String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException{
+                                                                   String providerId,
+                                                       @RequestParam(value = "status", required = true)
+                                                       @NotNull(message = "status不能是null值")
+                                                       @NotEmpty(message = "status不能是空值")
+                                                       @EnumValueValidator(enumClass = Constants.ProviderStatus.class, message = "不是枚举有效值")
+                                                               @ApiParam(value = "营业状态。有效枚举值：In_business，Out_business", required = true, example = "In_business")
+                                                               String status) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException{
         //code
         return null;
     }
 
-    @ApiOperation(value = "对providerId代表的供应商做下线操作", notes = "【供应商/供应商列表】页面下的 <下线>操作。 是否允许下线一个供应商，取决于供应商当前的状态。下面的表格说明不同状态下可以允许的操作：<br>" +
-                                                            "<table border=\"1\" align=\"center\"> <tr><th>供应商营业状态</th><th>修改</th><th>删除</th><th>上线</th><th>下线</th></tr>" +
-                                                            "<tr><td>In_business</td><td>X</td><td>X</td><td>X</td><td>V</td></tr>" +
-                                                            "<tr><td>Out_business</td><td>V</td><td>V</td><td>V</td><td>X</td></tr>" +
-                                                            "</table>" +
-                                                            "<br>" +
-                                                            "Note: X代表动作不允许，V代表动作允许")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
-    })
-    @PutMapping(value = "/{providerId}/off")
-    public FarmResponse<ProviderDto> setProviderOffLine(@PathVariable(value = "providerId", required = true)
-                                                            @NotBlank(message = "providerId不能是空值")
-                                                            @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
-                                                            @ApiParam(value = "供应商ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
-                                                                    String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException{
-        //code
-        return null;
-    }
 
     @ApiOperation(value = "删除一个或者多个供应商", notes = "【供应商/供应商列表】页面下的<删除>或者<全删>操作。当删除多个对象时，用','拼接多个providerId作为providerIds的值。 是否允许删除一个供应商，取决于供应商当前的状态。下面的表格说明不同状态下可以允许的操作：<br>" +
                                                             "<table border=\"1\" align=\"center\"> <tr><th>供应商营业状态</th><th>修改</th><th>删除</th><th>上线</th><th>下线</th></tr>" +
@@ -156,8 +141,8 @@ public class ProviderController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
-    @DeleteMapping
-    public FarmResponse<Object> deleteProviderByIds(@RequestParam(value = "providerIds", required = true)
+    @DeleteMapping(value = "/{providerIds}")
+    public FarmResponse<Object> deleteProviderByIds(@PathVariable(value = "providerIds", required = true)
                                                         @NotBlank(message = "providerIds不能是空值")
                                                         @MultipleUUIDValueValidator(message = "参数providerIds含有无效的providerId。providerId必须符合UUID格式。参考：http://www.uuid.online/")
                                                         @ApiParam(value = "待删除的供应商的providerId。当多个供应商需要删除，用','拼接providerId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")

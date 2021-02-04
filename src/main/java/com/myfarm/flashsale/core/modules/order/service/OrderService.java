@@ -21,8 +21,8 @@ public interface OrderService {
      * @throws OrderNotFoundException
      */
     String createOrder(List<String> cartItemIds, OrderDto orderDto) throws OrderParameterException, OrderBusinessException, OrderNotFoundException;
-    PageInfo<List<OrderDto>> getOrdersByFilter(OrderFilter orderFilter, int page, int pageSize) throws OrderParameterException, OrderBusinessException, OrderNotFoundException;
-    PageInfo<List<OrderDetailDto>> getOrderDetails(OrderDetailFilter orderDetailFilter) throws OrderParameterException, OrderBusinessException, OrderNotFoundException;
+    PageInfo<OrderDto> getOrdersByFilter(OrderFilter orderFilter, int page, int pageSize) throws OrderParameterException, OrderBusinessException, OrderNotFoundException;
+    PageInfo<OrderDetailDto> getOrderDetails(OrderDetailFilter orderDetailFilter) throws OrderParameterException, OrderBusinessException, OrderNotFoundException;
     void deleteOrderById(String orderId) throws OrderParameterException, OrderBusinessException, OrderNotFoundException;
     void updateOrder(OrderDto orderDto) throws OrderParameterException, OrderBusinessException, OrderNotFoundException;
     //void updateOrderStatus(String newStatus, String orderId) throws OrderParameterException, OrderBusinessException, OrderNotFoundException;

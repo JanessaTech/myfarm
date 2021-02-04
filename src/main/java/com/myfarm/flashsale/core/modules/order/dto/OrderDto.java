@@ -53,4 +53,99 @@ public class OrderDto {
 
     private List<OrderDetailDto> orderDetailDtoList;
 
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getTelPhone() {
+        return telPhone;
+    }
+
+    public void setTelPhone(String telPhone) {
+        this.telPhone = telPhone;
+    }
+
+    public SiteDto getSiteDto() {
+        return siteDto;
+    }
+
+    public void setSiteDto(SiteDto siteDto) {
+        this.siteDto = siteDto;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public Integer getNumberOfProd() {
+        return numberOfProd;
+    }
+
+    public void setNumberOfProd(Integer numberOfProd) {
+        this.numberOfProd = numberOfProd;
+    }
+
+    public Double getTotalPay() {
+        return totalPay;
+    }
+
+    public void setTotalPay(Double totalPay) {
+        this.totalPay = totalPay;
+    }
+
+    public Double getActualPay() {
+        return actualPay;
+    }
+
+    public void setActualPay(Double actualPay) {
+        this.actualPay = actualPay;
+    }
+
+    public PaymentDto getPaymentDto() {
+        return paymentDto;
+    }
+
+    public void setPaymentDto(PaymentDto paymentDto) {
+        this.paymentDto = paymentDto;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<OrderDetailDto> getOrderDetailDtoList() {
+        return orderDetailDtoList;
+    }
+
+    public void setOrderDetailDtoList(List<OrderDetailDto> orderDetailDtoList) {
+        this.orderDetailDtoList = orderDetailDtoList;
+    }
 }

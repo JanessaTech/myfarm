@@ -3,6 +3,7 @@ package com.myfarm.flashsale.core.modules.production.controller;
 import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.common.Constants;
 import com.myfarm.flashsale.core.modules.common.FarmResponse;
+import com.myfarm.flashsale.core.modules.common.validation.EnumValueValidator;
 import com.myfarm.flashsale.core.modules.common.validation.MultipleUUIDValueValidator;
 import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
 import com.myfarm.flashsale.core.modules.production.dto.BandDto;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 @Api(value = "商品管理。主要负责商品、品牌及分类的增删改查等相关操作", tags = "production")
@@ -118,50 +121,27 @@ public class ProductionController {
     }
 
 
-    @ApiOperation(value = "对productionId对应的商品做上线操作", notes = "【商品/商品列表】页面下的 <上线>操作。是否允许上线一个商品，取决于商品当前的状态。下面的表格说明不同状态下可以允许的操作：<br>" +
-                                                                                    "<table border=\"1\" align=\"center\"> <tr><th>上架状态</th><th>查看</th><th>修改</th><th>删除</th><th>上架</th><th>下架</th><th>审核</th></tr>" +
-                                                                                    "<tr><td>New</td><td>V</td><td>V</td><td>V</td><td>V</td><td>X</td><td>X</td></tr>" +
-                                                                                    "<tr><td>On</td><td>V</td><td>X</td><td>X</td><td>X</td><td>V</td><td>V</td></tr>" +
-                                                                                    "<tr><td>Off</td><td>V</td><td>V</td><td>V</td><td>V</td><td>X</td><td>X</td></tr>" +
-                                                                                    "</table>" +
-                                                                                    "<br>" +
-                                                                                    "Note: X代表动作不允许，V代表动作允许")
+    @ApiOperation(value = "设置productionId对应的商品的上架状态", notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
-    @PutMapping(value = "/{productionId}/on", produces = {"application/json"})
-    public FarmResponse<ProductionDto> setProductionOnLine(@PathVariable(value = "productionId", required = true)
+    @PutMapping(value = "/{productionId}/status", produces = {"application/json"})
+    public FarmResponse<ProductionDto> setProductionStatus(@PathVariable(value = "productionId", required = true)
                                                                @NotBlank(message = "productionId不能是空值")
                                                                @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
                                                                @ApiParam(value = "商品ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
-                                                                String productionId) throws ProductionParameterException, ProductionBusinessException, ProductionNotFoundException{
+                                                                String productionId,
+                                                           @RequestParam(value = "status", required = true)
+                                                           @NotNull(message = "status不能是null值")
+                                                           @NotEmpty(message = "status不能是空值")
+                                                           @EnumValueValidator(enumClass = Constants.ProductionStatus.class, message = "不是枚举有效值")
+                                                           @ApiParam(value = "上架状态。有效枚举值：New, On, Off", required = true, example = "New")
+                                                                   String status) throws ProductionParameterException, ProductionBusinessException, ProductionNotFoundException{
         //code
         return null;
     }
 
-
-    @ApiOperation(value = "对productionId对应的商品做下线操作", notes = "【商品/商品列表】页面下的 <下线>操作。是否允许下线一个商品，取决于商品当前的状态。下面的表格说明不同状态下可以允许的操作：<br>" +
-                                                                                    "<table border=\"1\" align=\"center\"> <tr><th>上架状态</th><th>查看</th><th>修改</th><th>删除</th><th>上架</th><th>下架</th><th>审核</th></tr>" +
-                                                                                    "<tr><td>New</td><td>V</td><td>V</td><td>V</td><td>V</td><td>X</td><td>X</td></tr>" +
-                                                                                    "<tr><td>On</td><td>V</td><td>X</td><td>X</td><td>X</td><td>V</td><td>V</td></tr>" +
-                                                                                    "<tr><td>Off</td><td>V</td><td>V</td><td>V</td><td>V</td><td>X</td><td>X</td></tr>" +
-                                                                                    "</table>" +
-                                                                                    "<br>" +
-                                                                                    "Note: X代表动作不允许，V代表动作允许")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
-    })
-    @PutMapping(value = "/{productionId}/off", produces = {"application/json"})
-    public FarmResponse<ProductionDto> setProductionOffLine(@PathVariable(value = "productionId", required = true)
-                                                                @NotBlank(message = "productionId不能是空值")
-                                                                @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
-                                                                @ApiParam(value = "商品ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
-                                                                String productionId) throws ProductionParameterException, ProductionBusinessException, ProductionNotFoundException{
-        //code
-        return null;
-    }
 
     @ApiOperation(value = "删除一个或者多个商品", notes = "【商品/商品列表】页面下的<删除>或者<全删>操作。当删除多个对象时，用','拼接多个productionId作为productionIds的值。是否允许删除一个商品，取决于商品当前的状态。下面的表格说明不同状态下可以允许的操作：<br>" +
                                                                                     "<table border=\"1\" align=\"center\"> <tr><th>上架状态</th><th>查看</th><th>修改</th><th>删除</th><th>上架</th><th>下架</th><th>审核</th></tr>" +
@@ -175,8 +155,8 @@ public class ProductionController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
-    @DeleteMapping
-    public FarmResponse<Object> deleteProductionByIds(@RequestParam(value = "productionIds", required = true)
+    @DeleteMapping(value = "/{productionIds}")
+    public FarmResponse<Object> deleteProductionByIds(@PathVariable(value = "productionIds", required = true)
                                                           @NotBlank(message = "productionIds不能是空值")
                                                           @MultipleUUIDValueValidator(message = "参数productionIds含有无效的productionId。productionId必须符合UUID格式。参考：http://www.uuid.online/")
                                                           @ApiParam(value = "待删除的商品的productionId。当多个商品需要删除，用','拼接productionId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")

@@ -13,7 +13,7 @@ public class UserProfileDto {
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
     private String userId;
 
-    @ApiModelProperty(value = "用户名称。用户名规则：4到16位（字母，数字，下划线，减号）。正则表达式：^[a-zA-Z0-9_-]{4,16}$", required = true, example = "John_9527-test")
+    @ApiModelProperty(value = "用户名称。用户名规则：4到16位（字母，数字，下划线，减号）。正则表达式：^[a-zA-Z0-9_-]{4,16}$", example = "John_9527-test")
     @Pattern(regexp = "^[a-zA-Z0-9_-]{4,16}$", message = "用户名只能包含字母，数字，下划线，减号，且长度在4-16之间")
     private String name;
 
@@ -29,7 +29,7 @@ public class UserProfileDto {
     @ApiModelProperty(value = "头像", example = "www.baidu.com/John_9527-test.jpg")
     private String profile;
 
-    @ApiModelProperty(value = "角色ID", required = true, example = "68f9cca6-642c-4a2c-a37f-ab16124b81df")
+    @ApiModelProperty(value = "角色ID", example = "68f9cca6-642c-4a2c-a37f-ab16124b81df")
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
     private String roleId;
 

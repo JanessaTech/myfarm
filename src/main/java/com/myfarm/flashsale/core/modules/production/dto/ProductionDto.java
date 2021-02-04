@@ -79,7 +79,7 @@ public class ProductionDto {
     @ApiModelProperty(value = "销量。<br>no need to fill when add and modify. must fill when query", example = "500")
     private Integer salesVolume; // no need to fill when add and modify. must fill when query
 
-    @ApiModelProperty(value = "上架状态。有效枚举值：New, On, Off. <br>not need to fill when add. fill what we read when modify and query")
+    @ApiModelProperty(value = "上架状态。有效枚举值：New, On, Off. <br>not need to fill when add. fill what we read when modify and query", example = "New")
     @EnumValueValidator(enumClass = Constants.ProductionStatus.class, message = "不是有效枚举值")
     private String statusOnShelf;  //not need to fill when add. fill what we read when modify and query
 

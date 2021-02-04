@@ -30,6 +30,14 @@ public class PaymentDto {
     //此处应该添加时间类型的字符串校验
     private String createDate;
 
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
     public String getPayment() {
         return payment;
     }

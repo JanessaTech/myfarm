@@ -51,4 +51,99 @@ public class OrderDetailDto {
     @ApiModelProperty(value = "加入购物车的时间。主要用来对订单里的商品进行排序", example = "2021.01.12 13:21:77")
     private String addCartDate;
 
+    public String getOrderDetailId() {
+        return orderDetailId;
+    }
+
+    public void setOrderDetailId(String orderDetailId) {
+        this.orderDetailId = orderDetailId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getProductionId() {
+        return productionId;
+    }
+
+    public void setProductionId(String productionId) {
+        this.productionId = productionId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getDateDelivery() {
+        return dateDelivery;
+    }
+
+    public void setDateDelivery(String dateDelivery) {
+        this.dateDelivery = dateDelivery;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(Double originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public String getProviderName() {
+        return providerName;
+    }
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getAddCartDate() {
+        return addCartDate;
+    }
+
+    public void setAddCartDate(String addCartDate) {
+        this.addCartDate = addCartDate;
+    }
 }

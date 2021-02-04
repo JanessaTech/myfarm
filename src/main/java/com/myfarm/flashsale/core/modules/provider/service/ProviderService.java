@@ -14,7 +14,6 @@ public interface ProviderService {
     ProviderDto getProviderById(String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException;
     void addProvider(ProviderDto providerDto) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException;
     ProviderDto updateProvider(ProviderDto providerDto) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException;
-    ProviderDto setProviderOnLine(String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException;
-    ProviderDto setProviderOffLine(String providerId) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException;
+    ProviderDto setProviderStatus(String providerId, String status) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException;
     void deleteProviderByIds(List<String> providerIds) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException;
 }

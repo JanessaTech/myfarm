@@ -1,7 +1,9 @@
 package com.myfarm.flashsale.core.modules.site.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.myfarm.flashsale.core.modules.common.Constants;
 import com.myfarm.flashsale.core.modules.common.FarmResponse;
+import com.myfarm.flashsale.core.modules.common.validation.EnumValueValidator;
 import com.myfarm.flashsale.core.modules.common.validation.MultipleUUIDValueValidator;
 import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
 import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Api(value = "自提店管理。主要负责自提店的增删改查等相关操作", tags = "site")
@@ -105,44 +108,25 @@ public class SiteController {
         return null;
     }
 
-    @ApiOperation(value = "对siteId代表的自提店做上线操作", notes = "【自提店/自提店列表】页面下的 <上线>操作。修改成功后，返回修改后的自提店对象。是否允许上线一个自提店，取决于自提店当前的状态。下面的表格说明不同状态下可以允许的操作：<br>" +
-                                   "<table border=\"1\" align=\"center\"> <tr><th>自提店营业状态</th><th>修改</th><th>删除</th><th>上线</th><th>下线</th></tr>" +
-                                    "<tr><td>In_business</td><td>X</td><td>X</td><td>X</td><td>V</td></tr>" +
-                                    "<tr><td>Out_business</td><td>V</td><td>V</td><td>V</td><td>X</td></tr>" +
-                                    "</table>" +
-                                    "<br>" +
-                                    "Note: X代表动作不允许，V代表动作允许")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
-    })
-    @PutMapping(value = "/{siteId}/on", produces = {"application/json"})
-    public FarmResponse<SiteDto> setSiteOnLine(@PathVariable(value = "siteId", required = true)
-                                                   @NotBlank(message = "siteId不能是空值")
-                                                   @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
-                                                   @ApiParam(value = "自提店ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
-                                                           String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException{
-        //code
-        return null;
-    }
 
-    @ApiOperation(value = "对siteId代表的自提店做下线操作", notes = "【自提店/自提店列表】页面下的 <下线>操作。修改成功后，返回修改后的自提店对象。<br>是否允许下线一个自提店，取决于自提店当前的状态。下面的表格说明不同状态下可以允许的操作：<br>" +
-                        "<table border=\"1\" align=\"center\"> <tr><th>自提店营业状态</th><th>修改</th><th>删除</th><th>上线</th><th>下线</th></tr>" +
-                        "<tr><td>In_business</td><td>X</td><td>X</td><td>X</td><td>V</td></tr>" +
-                        "<tr><td>Out_business</td><td>V</td><td>V</td><td>V</td><td>X</td></tr>" +
-                        "</table>" +
-                        "<br> "+
-                        "Note: X代表动作不允许，V代表动作允许")
+    @ApiOperation(value = "更新siteId代表的自提店的状态", notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
-    @PutMapping(value = "/{siteId}/off", produces = {"application/json"})
-    public FarmResponse<SiteDto> setSiteOffLine(@PathVariable(value = "siteId", required = true)
-                                               @NotBlank(message = "siteId不能是空值")
+    @PutMapping(value = "/{siteId}/status", produces = {"application/json"})
+    public FarmResponse<SiteDto> setSiteStatus(@PathVariable(value = "siteId", required = true)
+                                               @NotBlank(message = "siteId不能是null值")
+                                               @NotEmpty(message = "siteId不能是空值")
                                                @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
                                                @ApiParam(value = "自提店ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
-                                                       String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException{
+                                                       String siteId,
+                                               @RequestParam(value = "status", required = true)
+                                               @NotBlank(message = "status不能是null值")
+                                               @NotEmpty(message = "status不能是空值")
+                                               @EnumValueValidator(enumClass = Constants.SiteStatus.class, message = "不是枚举有效值")
+                                               @ApiParam(value = "营业状态。有效枚举值：In_business， Out_business", required = true, example = "In_business")
+                                                       String status) throws SiteParameterException, SiteBusinessException, SiteNotFoundException{
         //code
         return null;
     }
@@ -158,9 +142,10 @@ public class SiteController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
-    @DeleteMapping
-    public FarmResponse<Object> deleteSiteByIds(@RequestParam(value = "siteIds", required = true)
-                                                @NotBlank(message = "siteIds不能是空值")
+    @DeleteMapping(value = "/{siteIds}")
+    public FarmResponse<Object> deleteSiteByIds(@PathVariable(value = "siteIds", required = true)
+                                                @NotBlank(message = "siteIds不能是null值")
+                                                @NotEmpty(message = "siteIds不能是空值")
                                                 @MultipleUUIDValueValidator(message = "参数siteIds含有无效的siteId。userId必须符合UUID格式。参考：http://www.uuid.online/")
                                                 @ApiParam(value = "待删除的自提店的siteId。当多个自提店需要删除，用','拼接siteId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")
                                                             String siteIds) throws SiteParameterException, SiteBusinessException, SiteNotFoundException{
