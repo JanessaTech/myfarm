@@ -15,11 +15,15 @@ import com.myfarm.flashsale.core.modules.user.dto.filter.UserProfileFilter;
 import com.myfarm.flashsale.core.modules.user.exception.*;
 import com.myfarm.flashsale.core.modules.user.service.UserProfileService;
 import com.myfarm.flashsale.core.modules.user.service.UserRoleService;
+import com.myfarm.flashsale.core.security.domain.Token;
+import com.myfarm.flashsale.core.security.exception.TokenException;
+import com.myfarm.flashsale.core.security.service.TokenManager;
 import io.swagger.annotations.*;
 import org.hibernate.validator.constraints.Range;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +50,10 @@ public class UserController {
     @Autowired
     private UserRoleService userRoleService;
 
+    @Autowired
+    @Qualifier("auth2TokenManager")
+    private TokenManager auth2TokenManager;
+
     @ApiOperation(value = "登陆", notes = "返回token")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
@@ -56,13 +64,23 @@ public class UserController {
                                          @NotNull(message = "telPhone不能为null")
                                          @NotEmpty(message = "telPhone不能为空值")
                                          @Pattern(regexp = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", message = "电话号码格式不正确")
-                                         @ApiParam(value = "电话。支持电信、移动、联通等运营商，详情见：https://blog.csdn.net/gxzhaha/article/details/108115777。正则表达式：^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", required = true, example = "15824657732")
+                                         @ApiParam(value = "电话。支持电信、移动、联通等运营商，详情见：https://blog.csdn.net/gxzhaha/article/details/108115777。正则表达式：^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", required = true, example = "15319401521")
                                                  String telPhone,
                                          @RequestParam(value = "password", required = true)
                                         @Pattern(regexp = "^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$", message = "最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符")
-                                        @ApiParam(value = "密码", required = true)
-                                             String password) throws UserProfileBusinessException, UserRoleBusinessException {
-        return null;
+                                        @ApiParam(value = "密码", required = true) String password) throws UserProfileBusinessException, UserRoleBusinessException, LoginAuth2Exception, UserProfileNotFoundException, UserProfileParameterException {
+        Token token = null;
+        try {
+            token  = auth2TokenManager.createToken(telPhone, password);
+        } catch (TokenException e) {
+            e.printStackTrace();
+            throw new LoginAuth2Exception(e.getMessage(),e);
+        }
+
+        UserProfileDto userProfileDto = userProfileService.getUserProfileByTelPhone(telPhone);
+        LoginInfo loginInfo = new LoginInfo(token, userProfileDto.getUserId());
+
+        return FarmResponse.success(loginInfo);
     }
 
     @ApiOperation(value = "登出", notes = "")
@@ -162,7 +180,8 @@ public class UserController {
                                                       @NotBlank(message = "userIds不能是空值")
                                                       @MultipleUUIDValueValidator(message = "参数userIds含有无效的userId。userId必须符合UUID格式。参考：http://www.uuid.online/")
                                                       @ApiParam(value = "待删除的用户的userId。当多个用户需要删除，用','拼接userId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")
-                                                                  String userIds)  throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+                                                                  String userIds,
+                                                      @RequestParam(value = "access_token", required = true) String access_token)  throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
         //code
         return FarmResponse.success();
     }

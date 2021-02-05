@@ -1,4 +1,4 @@
-package com.myfarm.flashsale.core.modules.common;
+package com.myfarm.flashsale.core.security.domain;
 
 public class Token {
     private String access_token;

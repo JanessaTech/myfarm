@@ -36,6 +36,11 @@ public class SiteServiceImp implements SiteService {
     }
 
     @Override
+    public List<SiteDto> getSiteIds(List<String> siteIds) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
+        return null;
+    }
+
+    @Override
     public void addSite(SiteDto siteDto) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
 
     }

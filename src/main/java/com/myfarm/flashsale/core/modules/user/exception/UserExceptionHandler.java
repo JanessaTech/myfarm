@@ -27,6 +27,12 @@ public class UserExceptionHandler extends GlobalExceptionHandler {
         return new ResponseEntity(response, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(value = LoginAuth2Exception.class)
+    public ResponseEntity exception(LoginAuth2Exception ex) {
+        FarmResponse response = FarmResponse.fail(HttpStatus.CONFLICT, ex.getMessage());
+        return new ResponseEntity(response, HttpStatus.CONFLICT);
+    }
+
 
 
     @ExceptionHandler(value = UserRoleParameterException.class)

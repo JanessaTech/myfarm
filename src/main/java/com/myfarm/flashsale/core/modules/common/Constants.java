@@ -199,6 +199,48 @@ public class Constants {
         }
     }
 
+    // auth2
+    public final static String CLIENT_SECRET = "123456";
+    public final static String CLIENT_ID ="client_1";
+    public final static String PREFIX_AUTHORIZATION = "Basic ";
+    public final static String GRANT_TYPE[] = {"password","refresh_token"};
+    public final static String USERNAME = "username";
+    public final static String PASSWORD = "password";
+    public final static String GRANT_TYPE_KEY = "grant_type";
+    public final static String REFRESH_TOKEN = "refresh_token";
+    public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_USER = "user";
+    public static final String AUTH2_TOKEN_URL = "http://127.0.0.1:8080/v1.0/api/oauth/token";
+    public static final String ACCESS_TOKEN_KEY = "access_token";
+    public final static String HEADER_KEY_AUTHORIZATION = "Authorization";
+    public enum UserRole{
+        admin("admin", "管理员"),
+        super_admin("super_admin", "超级管理员"),
+        user("user","普通用户");
+        private String name;
+        private String des;
+        UserRole(String name, String des){
+            this.name = name;
+            this.des = des;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDes() {
+            return des;
+        }
+
+        @Override
+        public String toString() {
+            return "UserRole{" +
+                    "name='" + name + '\'' +
+                    ", des='" + des + '\'' +
+                    '}';
+        }
+    }
+
 
     //swagger related info
     public static final String API_TITLE = "农菜鲜后端api手册";

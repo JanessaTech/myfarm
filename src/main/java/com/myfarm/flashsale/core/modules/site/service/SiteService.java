@@ -12,6 +12,7 @@ import java.util.List;
 public interface SiteService {
     PageInfo<SiteDto> getSitesByFilter(SiteFilter siteFilter, int page, int pageSize) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
     SiteDto getSiteById(String siteId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
+    List<SiteDto> getSiteIds(List<String> siteIds) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
     void addSite(SiteDto siteDto) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
     SiteDto updateSite(SiteDto siteDto) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
     SiteDto setSiteStatus(String siteId, String status) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;

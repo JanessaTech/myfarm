@@ -22,7 +22,7 @@ public interface UserProfileService {
      * @throws UserProfileBusinessException
      * @throws UserProfileNotFoundException
      */
-    String getUserProfileByTelPhone(String telPhone) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
+    UserProfileDto getUserProfileByTelPhone(String telPhone) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
     void addUserProfile(UserProfileDto userProfileDto) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
     UserProfileDto updateUserProfile(UserProfileDto userProfileDto) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
     void deleteUserProfileByIds(List<String> userIds)  throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException;
