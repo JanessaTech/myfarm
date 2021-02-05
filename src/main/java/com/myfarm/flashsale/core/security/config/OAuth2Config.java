@@ -38,7 +38,7 @@ public class OAuth2Config {
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/users/login").permitAll() //all urls here are based on server.servlet.contextPath defined in application.properties
+                    .antMatchers("/users/login", "/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs/**", "/webjars/**").permitAll() //all urls here are based on server.servlet.contextPath defined in application.properties
                     .antMatchers(HttpMethod.POST, "/users").hasAnyAuthority(Constants.UserRole.user.getName())
                     .antMatchers(HttpMethod.DELETE, "/users/**").hasAnyAuthority(Constants.UserRole.admin.getName())
                     .anyRequest()
