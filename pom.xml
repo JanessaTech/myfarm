@@ -71,6 +71,12 @@
 		</dependency>
 		<!-- end Swagger-UI -->
 
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-core</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+
 		<!--add page -->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>

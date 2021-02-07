@@ -180,8 +180,7 @@ public class UserController {
                                                       @NotBlank(message = "userIds不能是空值")
                                                       @MultipleUUIDValueValidator(message = "参数userIds含有无效的userId。userId必须符合UUID格式。参考：http://www.uuid.online/")
                                                       @ApiParam(value = "待删除的用户的userId。当多个用户需要删除，用','拼接userId", required = true, example = "3e1e3805-8ed9-496f-82ae-e07e8f795954,fa8c2845-4134-443a-a842-f47441167748")
-                                                                  String userIds,
-                                                      @RequestParam(value = "access_token", required = true) String access_token)  throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+                                                                  String userIds)  throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
         //code
         return FarmResponse.success();
     }

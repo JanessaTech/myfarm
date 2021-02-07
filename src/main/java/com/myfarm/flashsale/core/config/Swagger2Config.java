@@ -12,11 +12,9 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.ModelRef;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.ResponseMessage;
-import springfox.documentation.service.Tag;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -49,7 +47,9 @@ public class Swagger2Config {
                 //only generate Api document for methods with @ApiOperation
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .securitySchemes(securitySchemes())
+                .securityContexts(securityContexts());
     }
 
     private ApiInfo apiInfo() {
@@ -91,5 +91,28 @@ public class Swagger2Config {
         responseMessageList.add(new ResponseMessageBuilder().code(404).message("找不到资源").responseModel(new ModelRef("FarmResponse")).build());
         responseMessageList.add(new ResponseMessageBuilder().code(409).message("业务逻辑异常").responseModel(new ModelRef("FarmResponse")).build());
         return responseMessageList;
+    }
+
+    private List<ApiKey> securitySchemes() {
+        List<ApiKey> apiKeys = new ArrayList<>();
+        apiKeys.add(new ApiKey("access_token", "access_token", "query"));
+        return apiKeys;
+    }
+
+    private List<SecurityContext> securityContexts() {
+        List<SecurityContext> securityContexts = new ArrayList<>();
+        securityContexts.add(SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.regex("^(?!auth).*$")).build());
+        return securityContexts;
+    }
+
+    private List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        List<SecurityReference> securityReferences = new ArrayList<>();
+        securityReferences.add(new SecurityReference("access_token", authorizationScopes));
+        return securityReferences;
     }
 }

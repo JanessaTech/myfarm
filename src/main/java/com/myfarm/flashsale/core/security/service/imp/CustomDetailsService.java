@@ -21,10 +21,10 @@ public class CustomDetailsService implements UserDetailsService {
     private MessageSource messageSource;
 
     @Override
-    public UserDetails loadUserByUsername(String telPhone) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserProfileDto userProfileDto = null;
         try{
-            userProfileDto = userProfileService.getUserProfileByTelPhone(telPhone);
+            userProfileDto = userProfileService.getUserProfileByTelPhone(s);
         }catch (Exception ex){
             throw new UsernameNotFoundException(ex.getMessage(), ex);
         }
@@ -35,7 +35,7 @@ public class CustomDetailsService implements UserDetailsService {
             customUser = new CustomUser(userEntity);
             return customUser;
         }
-        String msg = this.messageSource.getMessage("user.notfound.byTelPhone",new Object[]{telPhone}, Locale.getDefault());
+        String msg = this.messageSource.getMessage("user.notfound.byTelPhone",new Object[]{s}, Locale.getDefault());
         throw new UsernameNotFoundException(msg);
     }
 }
