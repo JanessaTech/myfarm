@@ -1,4 +1,4 @@
-package com.myfarm.flashsale.core.modules.site.dto;
+package com.myfarm.flashsale.core.modules.site.vo;
 
 import com.myfarm.flashsale.core.modules.common.Constants;
 import com.myfarm.flashsale.core.modules.common.validation.EnumValueValidator;
@@ -11,11 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @ApiModel
-public class SiteDto {
-    @ApiModelProperty(value = "自提店ID。符合UUID格式。参考：http://www.uuid.online", example = "d9a4d5d5-0c9a-4508-952c-091851285a54")
-    @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
-    private String siteId;
-
+public class SiteAddVo {
     @ApiModelProperty(value = "自提店名称。自提店名称规则：4到30位（字母，数字，下划线，减号）。正则表达式：^[a-zA-Z0-9_-]{4,30}$", required = true, example = "zitidian1234")
     @NotNull(message = "自提店名称不能为null")
     @NotBlank(message = "自提店名称不能为空字符串")
@@ -51,14 +47,6 @@ public class SiteDto {
 
     @ApiModelProperty(value = "备注", example = "testtesttest")
     private String comments;
-
-    public String getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(String siteId) {
-        this.siteId = siteId;
-    }
 
     public String getName() {
         return name;

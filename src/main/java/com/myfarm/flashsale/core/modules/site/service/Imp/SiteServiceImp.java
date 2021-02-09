@@ -2,7 +2,7 @@ package com.myfarm.flashsale.core.modules.site.service.Imp;
 
 import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
-import com.myfarm.flashsale.core.modules.site.dto.filter.SiteFilter;
+import com.myfarm.flashsale.core.modules.site.vo.filter.SiteFilter;
 import com.myfarm.flashsale.core.modules.site.exception.SiteBusinessException;
 import com.myfarm.flashsale.core.modules.site.exception.SiteNotFoundException;
 import com.myfarm.flashsale.core.modules.site.exception.SiteParameterException;
@@ -46,14 +46,10 @@ public class SiteServiceImp implements SiteService {
     }
 
     @Override
-    public SiteDto updateSite(SiteDto siteDto) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
-        return null;
+    public void updateSite(SiteDto siteDto) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
+        return ;
     }
 
-    @Override
-    public SiteDto setSiteStatus(String siteId, String status) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
-        return null;
-    }
 
     @Override
     public void deleteSiteByIds(List<String> siteIds) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {

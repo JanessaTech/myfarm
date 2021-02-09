@@ -7,7 +7,7 @@ import com.myfarm.flashsale.core.modules.id.exception.IdException;
 import com.myfarm.flashsale.core.modules.id.service.IdGenerator;
 import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
 import com.myfarm.flashsale.core.modules.user.dto.UserProfileDto;
-import com.myfarm.flashsale.core.modules.user.dto.filter.UserProfileFilter;
+import com.myfarm.flashsale.core.modules.user.vo.filter.UserProfileFilter;
 import com.myfarm.flashsale.core.modules.user.dto.modelmapper.UserProfileConverter;
 import com.myfarm.flashsale.core.modules.user.exception.UserProfileBusinessException;
 import com.myfarm.flashsale.core.modules.user.exception.UserProfileNotFoundException;
@@ -106,8 +106,8 @@ public class UserProfileServiceImp implements UserProfileService {
     }
 
     @Override
-    public UserProfileDto updateUserProfile(UserProfileDto userProfileDto) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-        return null;
+    public void updateUserProfile(UserProfileDto userProfileDto) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+        return;
     }
 
     @Override
@@ -121,37 +121,12 @@ public class UserProfileServiceImp implements UserProfileService {
     }
 
     @Override
-    public void getVerificationCode(String telPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-
-    }
-
-    @Override
-    public void userRegister(Integer verificationCode, UserProfileDto userProfileDto) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-
-    }
-
-    @Override
-    public void updatePassword(String userId, String oldPassword, String newPassword) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-
-    }
-
-    @Override
-    public void updateTelPhone(String userId, Integer verificationCode, String newPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-
-    }
-
-    @Override
-    public void updateProfile(String userId, String profile) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-
-    }
-
-    @Override
-    public void updateName(String userId, String name) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-
-    }
-
-    @Override
     public void setSite(String userId, String siteId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
+
+    }
+
+    @Override
+    public void getVerificationCode(String telPhone) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
 
     }
 }

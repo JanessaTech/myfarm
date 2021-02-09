@@ -81,8 +81,8 @@ public class OAuth2Config {
                 tokenService.setSupportRefreshToken(true);
                 tokenService.setClientDetailsService(endpoints.getClientDetailsService());
                 tokenService.setTokenEnhancer(endpoints.getTokenEnhancer());
-                tokenService.setAccessTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(1));
-                tokenService.setRefreshTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(1));
+                tokenService.setAccessTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(24));
+                tokenService.setRefreshTokenValiditySeconds((int) TimeUnit.HOURS.toSeconds(24));
                 tokenService.setReuseRefreshToken(false);
                 endpoints.tokenServices(tokenService);
             }

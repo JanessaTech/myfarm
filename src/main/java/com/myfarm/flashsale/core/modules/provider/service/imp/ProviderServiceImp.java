@@ -2,7 +2,7 @@ package com.myfarm.flashsale.core.modules.provider.service.imp;
 
 import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.provider.dto.ProviderDto;
-import com.myfarm.flashsale.core.modules.provider.dto.filter.ProviderFilter;
+import com.myfarm.flashsale.core.modules.site.filter.ProviderFilter;
 import com.myfarm.flashsale.core.modules.provider.exception.ProviderBusinessException;
 import com.myfarm.flashsale.core.modules.provider.exception.ProviderNotFoundException;
 import com.myfarm.flashsale.core.modules.provider.exception.ProviderParameterException;
@@ -41,14 +41,10 @@ public class ProviderServiceImp implements ProviderService {
     }
 
     @Override
-    public ProviderDto updateProvider(ProviderDto providerDto) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
-        return null;
+    public void updateProvider(ProviderDto providerDto) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
+        return;
     }
 
-    @Override
-    public ProviderDto setProviderStatus(String providerId, String status) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {
-        return null;
-    }
 
     @Override
     public void deleteProviderByIds(List<String> providerIds) throws ProviderParameterException, ProviderBusinessException, ProviderNotFoundException {

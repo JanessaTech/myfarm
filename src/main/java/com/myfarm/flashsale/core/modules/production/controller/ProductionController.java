@@ -9,7 +9,7 @@ import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
 import com.myfarm.flashsale.core.modules.production.dto.BandDto;
 import com.myfarm.flashsale.core.modules.production.dto.CategoryDto;
 import com.myfarm.flashsale.core.modules.production.dto.ProductionDto;
-import com.myfarm.flashsale.core.modules.production.dto.filter.ProductionFilter;
+import com.myfarm.flashsale.core.modules.production.vo.filter.ProductionFilter;
 import com.myfarm.flashsale.core.modules.production.exception.*;
 import com.myfarm.flashsale.core.modules.production.service.BandService;
 import com.myfarm.flashsale.core.modules.production.service.CategoryService;

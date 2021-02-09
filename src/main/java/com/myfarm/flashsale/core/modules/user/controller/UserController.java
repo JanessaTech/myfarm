@@ -4,17 +4,16 @@ import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.common.FarmResponse;
 import com.myfarm.flashsale.core.modules.common.validation.MultipleUUIDValueValidator;
 import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
-import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
 import com.myfarm.flashsale.core.modules.site.exception.SiteBusinessException;
 import com.myfarm.flashsale.core.modules.site.exception.SiteNotFoundException;
 import com.myfarm.flashsale.core.modules.site.exception.SiteParameterException;
-import com.myfarm.flashsale.core.modules.user.dto.LoginInfo;
+import com.myfarm.flashsale.core.modules.site.vo.SiteShowVo;
 import com.myfarm.flashsale.core.modules.user.dto.UserProfileDto;
-import com.myfarm.flashsale.core.modules.user.dto.UserRoleDto;
-import com.myfarm.flashsale.core.modules.user.dto.filter.UserProfileFilter;
 import com.myfarm.flashsale.core.modules.user.exception.*;
 import com.myfarm.flashsale.core.modules.user.service.UserProfileService;
 import com.myfarm.flashsale.core.modules.user.service.UserRoleService;
+import com.myfarm.flashsale.core.modules.user.vo.*;
+import com.myfarm.flashsale.core.modules.user.vo.filter.UserProfileFilter;
 import com.myfarm.flashsale.core.security.domain.Token;
 import com.myfarm.flashsale.core.security.exception.TokenException;
 import com.myfarm.flashsale.core.security.service.TokenManager;
@@ -56,17 +55,17 @@ public class UserController {
 
     @ApiOperation(value = "登陆", notes = "返回token")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
+            @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @PostMapping(value = "/login", produces = {"application/json"})
-    public FarmResponse<LoginInfo> login(@RequestParam(value = "telPhone", required = true)
+    public FarmResponse<LoginInfoVo> login(@RequestParam(value = "telPhone", required = true)
                                          @NotNull(message = "telPhone不能为null")
                                          @NotEmpty(message = "telPhone不能为空值")
                                          @Pattern(regexp = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", message = "电话号码格式不正确")
                                          @ApiParam(value = "电话。支持电信、移动、联通等运营商，详情见：https://blog.csdn.net/gxzhaha/article/details/108115777。正则表达式：^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", required = true, example = "15319401521")
                                                  String telPhone,
-                                         @RequestParam(value = "password", required = true)
+                                           @RequestParam(value = "password", required = true)
                                         @Pattern(regexp = "^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$", message = "最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符")
                                         @ApiParam(value = "密码", required = true) String password) throws UserProfileBusinessException, UserRoleBusinessException, LoginAuth2Exception, UserProfileNotFoundException, UserProfileParameterException {
         Token token = null;
@@ -78,18 +77,21 @@ public class UserController {
         }
 
         UserProfileDto userProfileDto = userProfileService.getUserProfileByTelPhone(telPhone);
-        LoginInfo loginInfo = new LoginInfo(token, userProfileDto.getUserId());
+        LoginInfoVo loginInfoVo = new LoginInfoVo(token, userProfileDto.getUserId());
 
-        return FarmResponse.success(loginInfo);
+        return FarmResponse.success(loginInfoVo);
     }
 
     @ApiOperation(value = "登出", notes = "")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
+            @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @PostMapping(value = "/logout")
-    public FarmResponse<Object> logout() throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+    public FarmResponse<Object> logout(@PathVariable(value = "userId", required = true)
+                                           @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
+                                           @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "92dde1a3-a1db-4ab1-921d-f5bcd9ab0ce6")
+                                                   String userId) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
         //code
         return FarmResponse.success();
     }
@@ -103,7 +105,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @PostMapping(value = "/all", produces = {"application/json"}, consumes = { "application/json"})
-    public FarmResponse<PageInfo<UserProfileDto>> getUserProfilesByFilter(
+    public FarmResponse<PageInfo<UserProfileShowVo>> getUserProfilesByFilter(
                                                               @RequestBody(required = true) @Valid UserProfileFilter userProfileFilter,
                                                               @RequestParam(value = "page", required = true, defaultValue = "0")
                                                                     @Range(min = 0, message = "页码不能小于0")
@@ -124,7 +126,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @GetMapping(value = "/{userId}", produces = {"application/json"})
-    public FarmResponse<UserProfileDto> getUserProfileById(@PathVariable(value = "userId", required = true)
+    public FarmResponse<UserProfileShowVo> getUserProfileById(@PathVariable(value = "userId", required = true)
                                                         @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
                                                         @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "92dde1a3-a1db-4ab1-921d-f5bcd9ab0ce6")
                                                                     String userId) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
@@ -139,7 +141,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @PostMapping(consumes = {"application/json"})
-    public FarmResponse<Object> addUserProfile(@RequestBody(required = true) @Valid UserProfileDto userProfileDto) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+    public FarmResponse<Object> addUserProfile(@RequestBody(required = true) @Valid UserProfileAddVo userProfileAddVo) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
         /**
          * 这里需做如下参数验证，验证不通过，抛出UserRoleParameterException异常：
          *  - 当角色为非普通用户时，工号必须有有效值
@@ -157,7 +159,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "", response = FarmResponse.class)
     })
     @PutMapping(consumes = {"application/json"}, produces = {"application/json"})
-    public FarmResponse<UserProfileDto> updateUserProfile(@RequestBody(required = true) @Valid UserProfileDto userProfileDto) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
+    public FarmResponse<Object> updateUserProfile(@RequestBody(required = true) @Valid UserProfileUpdateVo userProfileUpdateVo) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
      /**
      * 这里需做如下参数验证，验证不通过，抛出UserRoleParameterException异常：
      *  - 当角色为非普通用户时，工号必须有有效值
@@ -192,7 +194,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @GetMapping(value = "/{userId}/site", produces = {"application/json"})
-    public FarmResponse<SiteDto> getSiteByUserId(@PathVariable(value = "userId", required = true)
+    public FarmResponse<SiteShowVo> getSiteByUserId(@PathVariable(value = "userId", required = true)
                                                  @NotBlank(message = "userId不能是空值")
                                                  @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
                                                  @ApiParam(value = "用户ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "04749fa6-791a-4ca9-ac7f-900f6d12f9a3")
@@ -201,6 +203,15 @@ public class UserController {
         return null;
     }
 
+    /**
+     * change site for a user
+     * @param userId
+     * @param siteId
+     * @return
+     * @throws UserProfileParameterException
+     * @throws UserProfileBusinessException
+     * @throws UserProfileNotFoundException
+     */
     @ApiOperation(value = "门店设置", notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
@@ -221,6 +232,16 @@ public class UserController {
         return FarmResponse.success();
     }
 
+    /**
+     * we will do following:
+     * send verificationCode in the form of text message to the telPhone
+     * register key/value pair(telPhone/verificationCode) into redis
+     * @param telPhone
+     * @return
+     * @throws UserProfileParameterException
+     * @throws UserProfileBusinessException
+     * @throws UserProfileNotFoundException
+     */
     @ApiOperation(value = "获取验证码", notes = "验证码以短信形式发送到telPhone对应的手机")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -236,23 +257,51 @@ public class UserController {
         return FarmResponse.success();
     }
 
+    /**
+     * access redis using telPhone as key to check if verificationCode given here is matched the corresponding value
+     * if matched, create a new userProfile with telPhone and password
+     * if not, throw UserProfileBusinessException
+     * @param verificationCode
+     * @param telPhone
+     * @param password
+     * @return
+     * @throws UserProfileParameterException
+     * @throws UserProfileBusinessException
+     * @throws UserProfileNotFoundException
+     */
     @ApiOperation(value = "用户注册", notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
-    @PostMapping(value = "/register", consumes = {"application/json"})
+    @PostMapping(value = "/register")
     public FarmResponse<Object> userRegister(@RequestParam(value = "verificationCode", required = true)
                                              @NotNull(message = "verificationCode不能为null")
-                                             Integer verificationCode,
                                              @ApiParam(value = "手机验证码", required = true, example = "1234")
-                                             @RequestBody(required = true) @Valid UserProfileDto userProfileDto) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
-        //code
+                                             Integer verificationCode,
+                                             @RequestParam(value = "telPhone", required = true)
+                                             @NotNull(message = "telPhone不能为null")
+                                             @NotEmpty(message = "telPhone不能为空值")
+                                             @Pattern(regexp = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", message = "电话号码格式不正确")
+                                             @ApiParam(value = "电话。支持电信、移动、联通等运营商，详情见：https://blog.csdn.net/gxzhaha/article/details/108115777。正则表达式：^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$", required = true, example = "15319401521")
+                                                     String telPhone,
+                                             @RequestParam(value = "password", required = true)
+                                                 @Pattern(regexp = "^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$", message = "最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符")
+                                                 @ApiParam(value = "密码", required = true) String password
+                                             ) throws UserProfileParameterException,UserProfileBusinessException, UserProfileNotFoundException{
         return FarmResponse.success();
     }
 
-
-
+    /**
+     * update password for a specific userProfile
+     * @param userId
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     * @throws UserProfileParameterException
+     * @throws UserProfileBusinessException
+     * @throws UserProfileNotFoundException
+     */
     @ApiOperation(value = "修改密码", notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
@@ -280,6 +329,20 @@ public class UserController {
         return FarmResponse.success();
     }
 
+    /**
+     * update telphone for userId. We should do as following:
+     *  - get existing phone(old phone) for userId
+     *  - access redis to check if the verificationCode given in the parameter is matched with the verificationCode found in redis(key is oldphone)
+     *  - if matched, update telphone for userId
+     *  - if not, throw UserProfileParameterException
+     * @param userId
+     * @param verificationCode
+     * @param newPhone
+     * @return
+     * @throws UserProfileParameterException
+     * @throws UserProfileBusinessException
+     * @throws UserProfileNotFoundException
+     */
     @ApiOperation(value = "更新电话", notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
@@ -304,6 +367,15 @@ public class UserController {
         return FarmResponse.success();
     }
 
+    /**
+     * update profile for userId
+     * @param userId
+     * @param profile
+     * @return
+     * @throws UserProfileParameterException
+     * @throws UserProfileBusinessException
+     * @throws UserProfileNotFoundException
+     */
     @ApiOperation(value = "更新头像", notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
@@ -323,6 +395,15 @@ public class UserController {
         return FarmResponse.success();
     }
 
+    /**
+     * update name for userId
+     * @param userId
+     * @param name
+     * @return
+     * @throws UserProfileParameterException
+     * @throws UserProfileBusinessException
+     * @throws UserProfileNotFoundException
+     */
     @ApiOperation(value = "更新昵称", notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = FarmResponse.class),
@@ -345,15 +426,13 @@ public class UserController {
     }
 
 
-
-
     @ApiOperation(value = "返回系统里所有的角色", notes = "【账户/角色管理】页面下的 <角色列表>。返回结果以<角色ID>列进行升序排序")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @GetMapping(value = "/roles", produces = {"application/json"})
-    public FarmResponse<List<UserRoleDto>> getAllRoles() throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException{
+    public FarmResponse<List<UserRoleVo>> getAllRoles() throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException{
         //code
         return null;
     }
@@ -364,7 +443,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "参数校验异常", response = FarmResponse.class)
     })
     @PostMapping(value = "/roles", produces = {"application/json"})
-    public FarmResponse<UserRoleDto> addRole(@RequestParam(value = "role", required = true)
+    public FarmResponse<UserRoleVo> addRole(@RequestParam(value = "role", required = true)
                                         @Pattern(regexp = "^[a-zA-Z]{3,10}$", message = "角色名为3-10位大小写字母组成")
                                         @ApiParam(value = "角色。输入的内容符合正则表达式：^[a-zA-Z]{3,10}$", required = true, example = "admin")
                                         String role) throws UserRoleParameterException, UserRoleBusinessException, UserRoleNotFoundException{

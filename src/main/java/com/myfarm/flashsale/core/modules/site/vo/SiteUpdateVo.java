@@ -1,18 +1,16 @@
-package com.myfarm.flashsale.core.modules.site.dto;
+package com.myfarm.flashsale.core.modules.site.vo;
 
-import com.myfarm.flashsale.core.modules.common.Constants;
-import com.myfarm.flashsale.core.modules.common.validation.EnumValueValidator;
 import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-@ApiModel
-public class SiteDto {
-    @ApiModelProperty(value = "自提店ID。符合UUID格式。参考：http://www.uuid.online", example = "d9a4d5d5-0c9a-4508-952c-091851285a54")
+public class SiteUpdateVo {
+    @ApiModelProperty(value = "自提店ID。符合UUID格式。参考：http://www.uuid.online", required = true, example = "d9a4d5d5-0c9a-4508-952c-091851285a54")
+    @NotNull(message = "siteId不能为null")
+    @NotBlank(message = "siteId不能为空字符串")
     @UUIDValueValidator(message = "不是有效的UUID格式。参考：http://www.uuid.online/")
     private String siteId;
 
@@ -33,12 +31,6 @@ public class SiteDto {
     @NotBlank(message = "地址不能为空字符串")
     @Pattern(regexp = "^[a-zA-Z0-9_-]{4,100}$", message = "地址只能包含字母，数字，下划线，减号且长度在4-100")
     private String address;
-
-    @ApiModelProperty(value = "营业状态", required = true, example = "In_business")
-    @NotNull(message = "营业状态不能为null")
-    @NotBlank(message = "营业状态不能为空字符串")
-    @EnumValueValidator(enumClass = Constants.SiteStatus.class, message = "不是枚举有效值")
-    private String operatingStatus;
 
     @ApiModelProperty(value = "门店图片", required = true, example = "www.baidu.com/111.jpg")
     private String sitePic;
@@ -82,14 +74,6 @@ public class SiteDto {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getOperatingStatus() {
-        return operatingStatus;
-    }
-
-    public void setOperatingStatus(String operatingStatus) {
-        this.operatingStatus = operatingStatus;
     }
 
     public String getSitePic() {

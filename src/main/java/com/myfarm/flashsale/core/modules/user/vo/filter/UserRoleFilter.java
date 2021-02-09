@@ -1,10 +1,10 @@
-package com.myfarm.flashsale.core.modules.user.dto.filter;
+package com.myfarm.flashsale.core.modules.user.vo.filter;
 
 import com.myfarm.flashsale.core.modules.common.Constants;
 
 public class UserRoleFilter {
-    private String roleId = "";
-    private String roleName = "";
+    private String roleId;
+    private String roleName;
     private String orderBy = "role_id";
     private String order = Constants.Order.ASC.getCode();
 

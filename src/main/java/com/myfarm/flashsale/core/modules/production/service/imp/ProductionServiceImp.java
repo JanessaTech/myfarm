@@ -2,7 +2,7 @@ package com.myfarm.flashsale.core.modules.production.service.imp;
 
 import com.github.pagehelper.PageInfo;
 import com.myfarm.flashsale.core.modules.production.dto.ProductionDto;
-import com.myfarm.flashsale.core.modules.production.dto.filter.ProductionFilter;
+import com.myfarm.flashsale.core.modules.production.vo.filter.ProductionFilter;
 import com.myfarm.flashsale.core.modules.production.exception.ProductionBusinessException;
 import com.myfarm.flashsale.core.modules.production.exception.ProductionNotFoundException;
 import com.myfarm.flashsale.core.modules.production.exception.ProductionParameterException;

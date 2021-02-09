@@ -1,4 +1,4 @@
-package com.myfarm.flashsale.core.modules.production.dto.filter;
+package com.myfarm.flashsale.core.modules.production.vo.filter;
 
 import com.myfarm.flashsale.core.modules.common.Constants;
 import com.myfarm.flashsale.core.modules.common.validation.EnumValueValidator;
