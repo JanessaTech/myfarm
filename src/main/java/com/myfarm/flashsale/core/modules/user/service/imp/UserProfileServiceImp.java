@@ -5,9 +5,7 @@ import com.github.pagehelper.util.StringUtil;
 import com.myfarm.flashsale.core.modules.common.Constants;
 import com.myfarm.flashsale.core.modules.id.exception.IdException;
 import com.myfarm.flashsale.core.modules.id.service.IdGenerator;
-import com.myfarm.flashsale.core.modules.site.dto.SiteDto;
 import com.myfarm.flashsale.core.modules.user.dto.UserProfileDto;
-import com.myfarm.flashsale.core.modules.user.vo.filter.UserProfileFilter;
 import com.myfarm.flashsale.core.modules.user.dto.modelmapper.UserProfileConverter;
 import com.myfarm.flashsale.core.modules.user.exception.UserProfileBusinessException;
 import com.myfarm.flashsale.core.modules.user.exception.UserProfileNotFoundException;
@@ -16,6 +14,7 @@ import com.myfarm.flashsale.core.modules.user.model.UserProfile;
 import com.myfarm.flashsale.core.modules.user.repository.mappers.UserProfileMapper;
 import com.myfarm.flashsale.core.modules.user.repository.mappers.UserRoleMapper;
 import com.myfarm.flashsale.core.modules.user.service.UserProfileService;
+import com.myfarm.flashsale.core.modules.user.vo.filter.UserProfileFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,11 +112,6 @@ public class UserProfileServiceImp implements UserProfileService {
     @Override
     public void deleteUserProfileByIds(List<String> userIds) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
 
-    }
-
-    @Override
-    public SiteDto getSiteByUserId(String userId) throws UserProfileParameterException, UserProfileBusinessException, UserProfileNotFoundException {
-        return null;
     }
 
     @Override

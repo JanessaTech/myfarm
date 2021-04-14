@@ -16,4 +16,5 @@ public interface SiteService {
     void addSite(SiteDto siteDto) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
     void updateSite(SiteDto siteDto) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
     void deleteSiteByIds(List<String> siteIds) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
+    SiteDto getSiteByUserId(String userId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException;
 }

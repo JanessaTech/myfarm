@@ -1,10 +1,7 @@
 package com.myfarm.flashsale.core.modules.user.vo;
 
-import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import javax.validation.constraints.Pattern;
 
 @ApiModel
 public class UserRoleVo {

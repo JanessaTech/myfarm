@@ -55,4 +55,9 @@ public class SiteServiceImp implements SiteService {
     public void deleteSiteByIds(List<String> siteIds) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
 
     }
+
+    @Override
+    public SiteDto getSiteByUserId(String userId) throws SiteParameterException, SiteBusinessException, SiteNotFoundException {
+        return null;
+    }
 }

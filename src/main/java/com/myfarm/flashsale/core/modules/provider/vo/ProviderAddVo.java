@@ -2,7 +2,6 @@ package com.myfarm.flashsale.core.modules.provider.vo;
 
 import com.myfarm.flashsale.core.modules.common.Constants;
 import com.myfarm.flashsale.core.modules.common.validation.EnumValueValidator;
-import com.myfarm.flashsale.core.modules.common.validation.UUIDValueValidator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
